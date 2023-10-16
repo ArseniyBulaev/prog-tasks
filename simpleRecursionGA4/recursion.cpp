@@ -32,10 +32,23 @@ void recursiveCountTest(){
     }
 }
 
+
+int recursiveMax(vector<int> array, int current_max){
+    if(array.size() == 0) return current_max;
+    if(array.back() > current_max) current_max = array.back();
+    array.pop_back();
+    return recursiveMax(array, current_max);
+}
+
+int recursiveMaxTest(){
+    vector<vector<int>> tests = {{}, {1}, {1, 2, 3}, {10,10,10,10}, {1,2,3,4,6,1}};
+    int max = -1;
+    for (const vector<int> & test : tests){
+       cout << recursiveMax(test, max);
+       cout << endl;
+    }
+}
+
 int main(){
-
-    
-    
-
     return 0;
 }
