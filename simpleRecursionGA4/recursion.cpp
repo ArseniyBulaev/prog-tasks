@@ -40,7 +40,7 @@ int recursiveMax(vector<int> array, int current_max){
     return recursiveMax(array, current_max);
 }
 
-int recursiveMaxTest(){
+void recursiveMaxTest(){
     vector<vector<int>> tests = {{}, {1}, {1, 2, 3}, {10,10,10,10}, {1,2,3,4,6,1}};
     int max = -1;
     for (const vector<int> & test : tests){
@@ -49,6 +49,30 @@ int recursiveMaxTest(){
     }
 }
 
+int recursiveMax(vector<int> array){
+    
+    if (array.size() == 0) return -1;
+
+    if (array.size() == 2){
+        return array[0] > array[1] ? array[0] : array[1];
+    }
+    
+    int last_element = array.back();
+    array.pop_back();
+    int recursion_result = recursiveMax(array);
+    return last_element > recursion_result ? last_element : recursion_result;
+    
+}
+
+void recursiveMaxTest2(){
+    vector<vector<int>> tests = {{}, {1}, {1, 2, 3}, {10,10,10,10}, {1,2,3,4,6,1}};
+    for (const vector<int> & test : tests){
+       cout << recursiveMax(test);
+       cout << endl;
+    }
+}
+
 int main(){
+    recursiveMaxTest2();
     return 0;
 }
