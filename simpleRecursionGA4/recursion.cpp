@@ -32,7 +32,6 @@ void recursiveCountTest(){
     }
 }
 
-
 int recursiveMax(vector<int> array, int current_max){
     if(array.size() == 0) return current_max;
     if(array.back() > current_max) current_max = array.back();
@@ -72,7 +71,30 @@ void recursiveMaxTest2(){
     }
 }
 
+int recursiveBinarySearch(const vector<int> & array, int smallest, int greatest, int item){
+    if(array.size() == 0 || (smallest > greatest)) return -1;
+
+    int mid = (smallest + greatest) / 2;
+
+    if(array[mid] == item) return mid;
+    if(array[mid] > item) greatest = mid - 1;
+    else smallest = mid + 1;
+
+    return recursiveBinarySearch(array, smallest, greatest, item);
+}
+
+void recursiveBinarySearchTest(){
+    vector<vector<int>> tests = {{}, {1}, {1, 2, 3}, {10,10,10,10}, {1,2,3,4,6}};
+    cout << "test1 :" << recursiveBinarySearch(tests[0], 0,0,1) << endl;
+    cout << "test2 :" << recursiveBinarySearch(tests[1], 0,0,1) << endl;
+    cout << "test3 :" << recursiveBinarySearch(tests[2], 0,2,2) << endl;
+    cout << "test4 :" << recursiveBinarySearch(tests[3], 0,3,10) << endl;
+    cout << "test5 :" << recursiveBinarySearch(tests[4], 0,4,3) << endl;
+    cout << "test6 :" << recursiveBinarySearch(tests[4], 0,4,4) << endl;
+    cout << "test7 :" << recursiveBinarySearch(tests[4], 0,4,2) << endl;
+}
+
 int main(){
-    recursiveMaxTest2();
+    recursiveBinarySearchTest();
     return 0;
 }
