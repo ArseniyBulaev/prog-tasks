@@ -61,7 +61,6 @@ int main(){
     String string_plus_char = from_char_a + 'm';
     String char_plus_string = 'm' + from_char_a;
 
-    std::cin.get()
 
     return 0;
 }
