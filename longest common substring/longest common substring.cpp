@@ -7,7 +7,7 @@ using std::vector;
 using std::pair;
 using std::cout, std::endl;
 
-string max_substring_in_a_string(const string & first, const string & second){
+string longest_common_substring(const string & first, const string & second){
     vector<int> table((first.size() + 1) * (second.size() + 1));
     string max_substring;
         
@@ -36,8 +36,8 @@ string max_substring_in_a_string(const string & first, const string & second){
 int main(){
     string first = "fish";
     string second = "vista";
-    string max_substring = max_substring_in_a_string(first, second);
-    cout << "max_substring: " <<  max_substring << endl;
+    string max_substring = longest_common_substring(first, second);
+    cout << "longest common substring: " <<  max_substring << endl;
 
     return 0;
 }
