@@ -6,6 +6,9 @@ using std::vector, std::set;
 vector<Point> nearest_neighbor(set<Point> available_points){
     // Маршрут
     vector<Point> route;
+    
+    if(available_points.empty()) return route;
+
     // Генератор случайных чисел
     std::random_device dev;
     // Алгоритм для генерации
