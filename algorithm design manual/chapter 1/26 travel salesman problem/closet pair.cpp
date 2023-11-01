@@ -1,52 +1,48 @@
 #include <map>
 #include <vector>
 #include <limits>
+#include <algorithm>
+#include <set>
 
 #include "closet pair.hpp"
 
-using std::map, std::vector;
+using std::map, std::vector, std::set;
 
-bool are_connected(const Point & s, const Point & t, const map<Point, std::set<Point>> & point_chains){
-    if (point_chains.find(t) == point_chains.end()) return false;
-    for (const Point & p: point_chains.at(t)){
-        if (p == s){
-            return true;
-        }
-        return are_connected(s, p, point_chains);
-    }
-}
 
-vector<Point> closet_pair(const std::set<Point> & points){
-   map<Point, std::set<Point>> point_chains;
+vector<Point> closet_pair(const set<Point> & points){
     vector<Point> route;
+    map<Point, set<Point>> chains;
+    for (const Point & p: points){
+        chains[p] = {};
+    }
+
     for (size_t i = 0; i < points.size() - 1; ++i){
         double d = std::numeric_limits<double>::infinity();
         Point s_m, t_m;
-        for(const Point & s : points){
-            for(const Point & t : points){
-                if (t != s && !are_connected(s, t, point_chains)){
-                    double s_to_t_dist = Point::calculate_distance(s, t);
-                    if (s_to_t_dist <= d){
+        for (const Point & s : points){
+            for (const Point & t : points){
+                if(s != t && std::find(chains[s].begin(), chains[s].end(), t) == chains[s].end()){
+                    double s_to_t_d = Point::calculate_distance(s, t);
+                    if (s_to_t_d < d){
                         s_m = s;
                         t_m = t;
-                        d = s_to_t_dist;
-                    } 
+                        d = s_to_t_d;
+                    }
                 }
             }
         }
-        // Cоединяем (s_m, t_m) ребром
-        point_chains[s_m].insert(t_m);
-        point_chains[t_m].insert(s_m);
+
+        for(const Point & p: chains[s_m]){
+            chains[p].push_back(t_m);
+        }
+        chains[s_m].push_back(t_m);
+        for(const Point & p: chains[t_m]){
+            chains[p].push_back(s_m);
+        }
+        chains[t_m].push_back(s_m);
         route.push_back(s_m);
         route.push_back(t_m);
     }
-    // Cоединяем две конечные точки ребром
-    Point start_point = route.front();
-    Point end_point = route.front();
-    point_chains[start_point].insert(end_point);
-    point_chains[end_point].insert(start_point);
-    route.push_back(start_point);
-
     return route;
 }
 

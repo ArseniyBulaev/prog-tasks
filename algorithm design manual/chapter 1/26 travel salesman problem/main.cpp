@@ -6,6 +6,7 @@
 
 #include "Point.h"
 #include "nearest neighbor.hpp"
+#include "closet pair.hpp"
 
 using std::vector, std::set;
 using std::cout, std::endl;
@@ -25,7 +26,7 @@ void test(){
             Point(-21, 0)
         };
 
-    vector<Point> route = nearest_neighbor(points);
+    vector<Point> route = closet_pair(points);
 
     for(const Point & p: route){
         cout << p << " ";
