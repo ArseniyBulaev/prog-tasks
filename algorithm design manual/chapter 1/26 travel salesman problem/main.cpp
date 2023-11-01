@@ -4,42 +4,10 @@
 #include <random>
 #include <algorithm>
 
+#include "Point.h"
+
 using std::vector, std::set;
 using std::cout, std::endl;
-
-struct Point{
-    int x;
-    int y;
-    Point(int x, int y): x(x), y(y) {}
-    static double calculate_distance(const Point &, const Point &);
-    friend std::ostream & operator << (std::ostream & out, const Point & point);
-};
-
-double Point::calculate_distance(const Point & a, const Point & b){
-    return sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
-}
-
-std::ostream & operator << (std::ostream & out, const Point & point){
-    out << "(" << point.x << ", " << point.y << ")";
-    return out;
-}
-
-bool operator < (const Point & point_1, const Point & point_2){
-    if (point_1.x != point_2.x){
-       return point_1.x < point_2.x;
-    }
-    else{
-        return point_1.y < point_2.y;
-    }
-}
-
-bool operator > (const Point & point_1, const Point & point_2){
-   return point_2 < point_1;
-}
-
-bool operator == (const Point & point_1, const Point & point_2){
-    return !(point_2 < point_1 || point_1 < point_2);
-}
 
 
 // Эвристика ближайшей точки
