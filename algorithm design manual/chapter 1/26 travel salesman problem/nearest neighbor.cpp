@@ -46,5 +46,10 @@ vector<Point> nearest_neighbor(set<Point> available_points){
         available_points.extract(p);
         route.push_back(p);
     }
+
+    // Возвращаемся из точки в p_n-1 в точку p_0
+    Point start_point = route.front();
+    route.push_back(start_point);
+
     return route;
 }
