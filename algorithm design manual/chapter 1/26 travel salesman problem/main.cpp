@@ -26,13 +26,11 @@ void test(){
             Point(-21, 0)
         };
 
-    vector<Point> route = closet_pair(points);
+    vector<Point> closet_pair_route = closet_pair(points);
+    vector<Point> nearest_neighbor_route = nearest_neighbor(points);
 
-    for(const Point & p: route){
-        cout << p << " ";
-    }
-    cout << endl;
-    cout << "route_distance: " << calculate_route_distance(route);
+    cout << "closet_pair_route_distance: " << calculate_route_distance(closet_pair_route) << endl;
+    cout << "nearest_neighbor_distance: " << calculate_route_distance(nearest_neighbor_route);
 }
 
 
