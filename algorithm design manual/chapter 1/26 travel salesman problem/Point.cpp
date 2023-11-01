@@ -28,3 +28,7 @@ bool Point::operator > (const Point & point) const{
 bool Point::operator == (const Point & point) const {
     return !(point < (*this) || (*this) < point);
 }
+
+bool Point::operator != (const Point & point) const {
+    return !(point == (*this));
+}
