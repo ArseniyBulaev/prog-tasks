@@ -11,7 +11,7 @@ using std::vector, std::set;
 using std::cout, std::endl;
 
 
-void nearest_neighbor_test(){
+void test(){
     set<Point> points {
             Point(0, 0), Point(1, 0), Point(-1, 0),
             Point(3, 0), Point(-5, 0), Point(11, 0),
@@ -28,6 +28,6 @@ void nearest_neighbor_test(){
 
 
 int main(){
-    nearest_neighbor_test();
+    test();
     return 0;
 }
