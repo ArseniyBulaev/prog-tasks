@@ -1,4 +1,4 @@
-#include "nearest_neighbor.h"
+#include "nearest neighbor.hpp"
 
 using std::vector, std::set;
 
