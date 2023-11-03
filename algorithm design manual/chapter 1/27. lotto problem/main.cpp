@@ -7,7 +7,7 @@
 using std::set, std::vector;
 
 
-set<set<int>> generate_subsets(const set<int> & superset, int k){
+set<set<int>> generate_subsets_of_some_length(const set<int> & superset, int k){
     int n = superset.size();
     int number_of_all_subsets = static_cast<int>(pow(2, n));
     set<int> subset;
@@ -51,7 +51,7 @@ set<set<int>> check_coverage(const set<int> & S, int l,  const set<set<int>> &  
                                 l_subset.begin(), l_subset.end(),
                                 std::inserter(S_l_subset_difference, S_l_subset_difference.begin()));
             // Для каждого (k - l)- подмножества разности S и l k_minus_l_subset
-            for(const set<int> & k_minus_l_subset: generate_subsets(S_l_subset_difference, k - l)){
+            for(const set<int> & k_minus_l_subset: generate_subsets_of_some_length(S_l_subset_difference, k - l)){
                 // Рассматриваем пересение ticket и (объёдинение k_minus_l_subset и l_subet)
                 set<int> k_minus_l_subset_l_subset_union;
                 std::set_union(k_minus_l_subset.begin(), k_minus_l_subset.end(),
@@ -72,10 +72,65 @@ set<set<int>> check_coverage(const set<int> & S, int l,  const set<set<int>> &  
     return covered_l_subsets;  
 }
 
+ set<set<set<int>>> generate_not_empty_subsets(const set<set<int>> superset){
+    int n = superset.size();
+    int number_of_all_subsets = static_cast<int>(pow(2, n));
+    set<set<int>> subset;
+    set<set<set<int>>> all_subsets;
+    vector<set<int>> superset_v;
+    for(const set<int> & element: superset) superset_v.push_back(element);
+
+    for (size_t i = 0; i < number_of_all_subsets; ++i){
+        for (size_t j = 0; j < n; ++j){
+            if (i & (1 << j)){
+                subset.insert(superset_v[j]);            
+            }
+        }
+        if (subset.size() > 0) all_subsets.insert(subset);
+        subset.clear(); 
+    }
+
+    return all_subsets;
+}
+
+// S - множество номеров
+// l - количество совпадающих номеров, необходимых, чтобы выйграть приз
+// k - количество номеров в билете
+set<set<int>> lotto_problem(const set<int> & superset, int k, int l){
+    set<set<int>> l_subsets = generate_subsets_of_some_length(superset, l); // Подмножества множества superset длины l
+    set<set<int>> k_subsets = generate_subsets_of_some_length(superset, k); // Подмножества множества superset длины k
+    set<set<set<int>>> all_possible_ticket_combinations =  generate_not_empty_subsets(k_subsets);
+    set<set<int>> best;
+    for(const set<set<int>> & ticket_combination : all_possible_ticket_combinations){
+       set<set<int>> need_to_cover(l_subsets);
+       for(const set<int> & ticket: ticket_combination){
+             set<set<int>> buffer;
+             set<set<int>> covered = check_coverage(superset, l, l_subsets, ticket);
+             std::set_difference(need_to_cover.begin(), need_to_cover.end(),
+                                covered.begin(), covered.end(),
+                                std::inserter(buffer, buffer.end()));
+            need_to_cover = buffer;
+       }
+       if (need_to_cover.empty()){
+            if (!best.empty()){
+                if(ticket_combination.size() < best.size()){
+                    best = ticket_combination;
+                }
+            }else{
+                best = ticket_combination;
+            } 
+       }  
+    }
+    return best;
+}
+
 
 int main(){
     set<int> superset = {1,2,3,4,5};
     int l = 2;
-    set<set<int>> covered_subsets = check_coverage(superset, l, generate_subsets(superset, l), {1, 2, 3});
+    int k = 3;
+    set<set<int>> best_solution = lotto_problem(superset, k, l);
+   
+    
     return 0;
 }
