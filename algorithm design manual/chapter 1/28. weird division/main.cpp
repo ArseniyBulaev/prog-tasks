@@ -1,51 +1,31 @@
 #include <iostream>
-#include <bitset>
+#include <vector>
 
 using std::cout, std::endl;
 
-int sign(int number){
-    return number >> 31;
+int weird_division(int dividend, int divider){
+   int division_result = 0;
+   while (dividend >= divider){
+    dividend -= divider;
+    division_result += 1;
+   }
+   return division_result;
 }
 
-unsigned weird_abs(int number){
-    int mask = number >> 31;
-    return (number + mask) ^ mask;
-}
+void test(){
+    std::vector<std::pair<int, int>> test_cases = {
+        {1000, 3},
+        {78324, 3124},
+        {321, 12}
+        };
 
- int get_most_significat_bit(int number){
-    if(number == 0) return 0;
-    int msb = -1;
-    while (number){
-        number >>= 1;
-        ++msb;
+    for(const std::pair<int, int> & test_case : test_cases){
+    cout << (weird_division(test_case.first, test_case.second) == static_cast<int>(test_case.first / test_case.second)) << endl;
     }
     
-    return (1<<msb);
 }
-
-int weird_division(int dividend, int divider){
-   if (dividend - divider == 0){return 1;}
-   if (dividend - divider < 0) {return 0;}
-   int dividend_last_bit = dividend & 1;
-
-   int division_result = 0;
-
-   if (dividend_last_bit == 1){
-    division_result = weird_division(dividend >> 1, divider) + weird_division((dividend >> 1) + 1, divider);
-   }
-   else{
-    division_result = 2 * weird_division(dividend >> 1, divider);
-   }
-
-   if (division_result == 0 && dividend > divider){
-        division_result = 1;
-   }
-    return division_result;
-}
-
 
 int main(){
-    int a = 17, b = 3;
-    cout << weird_division(a, b) << endl;
+    test();
     return 0;
 }
