@@ -38,11 +38,9 @@ string australian_voting(){
     // Считывание голосов
     vector<vector<int>> votes;
     std::string line;
-    while(std::getline(cin, line)){
+    while(std::getline(cin, line) && !line.empty()){
         votes.push_back(read_votes(number_of_challengers, line));
     }
-    
-    
     
     
     return winer;
