@@ -29,7 +29,7 @@ string australian_voting(){
     // Ввод числа кандидатов
     int number_of_challengers;
     cin >> number_of_challengers;
-    if (number_of_challengers == 0) return "\n";
+    if (number_of_challengers == 0) return "";
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     // Считывание кандидатов
     vector<string> challengers;
@@ -39,26 +39,30 @@ string australian_voting(){
         if(std::getline(cin, challenger)) challengers.push_back(challenger);
     }
     // Считывание голосов
-    vector<vector<int>> voters;
+    vector<vector<int>> voter_votes;
     std::string line;
     while(std::getline(cin, line) && !line.empty()){
-        voters.push_back(read_votes(number_of_challengers, line));
+        voter_votes.push_back(read_votes(number_of_challengers, line));
     }
     // Первоначальный подсчёт
     map<int, vector<int>> challenger_to_voter;
-    for(size_t i = 0; i < voters.size(); ++i){
-      challenger_to_voter[voters[i][0]].push_back(i); 
+    for(size_t i = 0; i < voter_votes.size(); ++i){
+      challenger_to_voter[voter_votes[i][0]].push_back(i); 
     }
     // Пересчёт по австралийской системе
-    vector<bool> dropped_out(number_of_challengers, false);
+    map<int, bool> dropped_out;
+    for (size_t i = 1; i <= number_of_challengers; i++){
+      dropped_out[i] = false;
+    }
+    
     int winer = -1;
     do{
-      int minimum_number_of_voters = voters.size();
+      int minimum_number_of_voters = voter_votes.size();
       int maximum_number_of_voters = 0;
       for(const std::pair<int, vector<int>> & record: challenger_to_voter){
-        if (!dropped_out[record.first - 1])
+        if (!dropped_out[record.first])
         {
-          double challenger_percent = static_cast<double>(record.second.size()) / voters.size();
+          double challenger_percent = static_cast<double>(record.second.size()) / voter_votes.size();
           if(record.second.size() < minimum_number_of_voters){
             minimum_number_of_voters = record.second.size();
           }
@@ -78,7 +82,7 @@ string australian_voting(){
       if (minimum_number_of_voters == maximum_number_of_voters){
         string draw;
          for(const std::pair<int, vector<int>> & record: challenger_to_voter){
-          if (!dropped_out[record.first - 1])
+          if (!dropped_out[record.first])
           {
             draw += challengers[record.first - 1] + "\n";
           }
@@ -91,18 +95,25 @@ string australian_voting(){
       for(const std::pair<int, vector<int>> & record: challenger_to_voter){
         if(record.second.size() == minimum_number_of_voters){
           // Кандидат больше не учитывается
-          dropped_out[record.first - 1] = true;
+          dropped_out[record.first] = true;
         }
       }
 
       // Пересчёт голосов Исключённых кандидатов
-      for(size_t i = 0; i < dropped_out.size(); ++i){
-            int voter_idx = i + 1;
-            if(dropped_out[i]){  
+      for(size_t challenger_idx = 1; challenger_idx <= dropped_out.size(); ++challenger_idx){
+          
+            if(dropped_out[challenger_idx]){  
               int vote_idx = 0;
-              while (dropped_out[voters[voter_idx][vote_idx] - 1]){++vote_idx;}
-              challenger_to_voter[voters[voter_idx][vote_idx]].push_back(voter_idx);
-              challenger_to_voter[voter_idx].clear();
+              for(int voter_idx: challenger_to_voter[challenger_idx]){
+                const vector<int> & votes = voter_votes[voter_idx];
+                for(int vote : votes){
+                  if(!dropped_out[vote]){
+                    challenger_to_voter[vote].push_back(voter_idx);
+                    break;
+                  }
+                }  
+              }
+              challenger_to_voter.erase(challenger_idx);
             }
           
       }
@@ -120,7 +131,10 @@ int main(){
 
     for (size_t i = 0; i < number_of_votes; ++i)
     {
-       std::cout << australian_voting() << endl;
+      std::cout << australian_voting();
+      if(i < (number_of_votes - 1)){
+        cout << endl;
+      } 
     }
     
     return 0;
