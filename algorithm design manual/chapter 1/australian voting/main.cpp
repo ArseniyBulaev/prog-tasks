@@ -6,9 +6,12 @@
 #include <limits>
 #include <sstream>
 
-using std::cout, std::cin, std::endl;
+using std::cout;
+using std::cin;
+using std::endl;
 using std::string;
-using std::vector, std::map;
+using std::vector;
+using std::map;
 
 vector<int> read_votes(int number_of_challengers, string line) {
   int vote;
@@ -26,7 +29,7 @@ string australian_voting(){
     // Ввод числа кандидатов
     int number_of_challengers;
     cin >> number_of_challengers;
-    if (number_of_challengers == 0) return "";
+    if (number_of_challengers == 0) return "\n";
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     // Считывание кандидатов
     vector<string> challengers;
@@ -99,8 +102,9 @@ string australian_voting(){
               int vote_idx = 0;
               while (dropped_out[voters[voter_idx][vote_idx] - 1]){++vote_idx;}
               challenger_to_voter[voters[voter_idx][vote_idx]].push_back(voter_idx);
+              challenger_to_voter[voter_idx].clear();
             }
-          challenger_to_voter[voter_idx].clear();
+          
       }
     }while(true);
     
@@ -108,9 +112,9 @@ string australian_voting(){
 }
 
 int main(){
-    // std::ifstream in("input.txt");
-    // std::streambuf *cinbuf = std::cin.rdbuf();
-    // cin.rdbuf(in.rdbuf());
+    std::ifstream in("input.txt");
+    std::streambuf *cinbuf = std::cin.rdbuf();
+    cin.rdbuf(in.rdbuf());
     int number_of_votes;
     cin >> number_of_votes;
 
