@@ -3,7 +3,8 @@
 #include <cmath>
 #include <algorithm>
 
-std::vector<size_t> generate_ramanujam_numbers(int n){
+// Решение за O(n^4)
+std::vector<size_t> generate_ramanujam_numbers_n_four(int n){
     std::vector<size_t> ramanujam_numbers;
     for (size_t a = 1; a < n; ++a){
         for (size_t b = a + 1; b < n; ++b){
