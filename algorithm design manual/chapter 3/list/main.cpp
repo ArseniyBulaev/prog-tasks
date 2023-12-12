@@ -21,6 +21,7 @@ void search_test(const List & source){
 
 int main(){
     char * strs[] = {"Lincoln", "Jeffreson", "Clinton"};
+    size_t size = sizeof(strs)/sizeof(strs[0]);
     List my_list = List(strs,3);
     my_list.print();
     search_test(my_list);
