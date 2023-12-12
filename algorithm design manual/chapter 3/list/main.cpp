@@ -66,7 +66,7 @@ void erase_test(const List & source,char ** strs, size_t strs_size){
 int main(){
     char * strs[] = {"Lincoln", "Jeffreson", "Clinton"};
     size_t size = sizeof(strs)/sizeof(strs[0]);
-    List my_list = List(strs,3);
+    List my_list = List(strs, size);
     // my_list.print();
     // search_test(my_list);
     // insert_test(my_list);
