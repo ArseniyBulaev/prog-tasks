@@ -30,12 +30,35 @@ void insert_test(List & source){
     }
 }
 
+void predecessor_test(List & source, char ** strs, size_t strs_size){
+    Node * predecessor;
+    char * element;
+    for(size_t i; i < strs_size; ++i){
+        element = strs[i];
+        predecessor = source.predecessor(element);
+        if(predecessor != nullptr){
+            std::cout << "predecessor of " << strs[i] << " is " << predecessor->data << std::endl; 
+        }
+        else{
+            std::cout << "predecessor of " << strs[i] << " not found" << std::endl;
+        }
+    }
+    predecessor = source.predecessor("Bulka");
+    if(predecessor != nullptr){
+        std::cout << "somehow predecessor of a non-existent element is " << predecessor->data << std::endl;
+    }
+    else{
+        std::cout << "predecessor of a non-existent element doesn't exist" << std::endl;
+    }
+}
+
 int main(){
     char * strs[] = {"Lincoln", "Jeffreson", "Clinton"};
     size_t size = sizeof(strs)/sizeof(strs[0]);
     List my_list = List(strs,3);
     my_list.print();
     // search_test(my_list);
-    insert_test(my_list);
+    // insert_test(my_list);
+    predecessor_test(my_list, strs, size);
     return 0;
 }

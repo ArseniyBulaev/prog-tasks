@@ -13,4 +13,5 @@ public:
     void print();
     Node * search(const char * target) const;
     void insert(char * element);
+    Node * predecessor(char * element);
 };

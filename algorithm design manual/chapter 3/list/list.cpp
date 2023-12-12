@@ -49,3 +49,19 @@ Node * List::search(const char * target) const{
     Node * p = new Node{element, head};
     head = p;
  }
+
+// Linear complexity: Theta(n) 
+ Node * List::predecessor(char * element){
+    Node * current = head;
+    // Border case: empty of one element list
+    if ((current == nullptr) || (current->next == nullptr)){
+        return nullptr;
+    }
+    while((current->next) != nullptr){
+        if((current->next)->data == element){
+            return current;
+        }
+        current = current->next;
+    }
+    return nullptr;
+ }
