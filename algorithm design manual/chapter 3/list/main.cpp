@@ -52,9 +52,14 @@ void predecessor_test(List & source, char ** strs, size_t strs_size){
     }
 }
 
-void erase_test(List source,char ** strs, size_t strs_size){
-    for(size_t i; i < strs_size; ++i){
-
+void erase_test(const List & source,char ** strs, size_t strs_size){
+    char * element;
+    for(size_t i = 0; i < strs_size; ++i){
+        List copy = source;
+        element = strs[i];
+        copy.print();
+        copy.erase(element);
+        copy.print();
     }
 }
 
@@ -62,10 +67,10 @@ int main(){
     char * strs[] = {"Lincoln", "Jeffreson", "Clinton"};
     size_t size = sizeof(strs)/sizeof(strs[0]);
     List my_list = List(strs,3);
-    List my_list_copy = my_list;
-    my_list.print();
+    // my_list.print();
     // search_test(my_list);
     // insert_test(my_list);
     // predecessor_test(my_list, strs, size);
+    erase_test(my_list, strs, size);
     return 0;
 }
