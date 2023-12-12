@@ -52,6 +52,12 @@ void predecessor_test(List & source, char ** strs, size_t strs_size){
     }
 }
 
+void erase_test(List source,char ** strs, size_t strs_size){
+    for(size_t i; i < strs_size; ++i){
+
+    }
+}
+
 int main(){
     char * strs[] = {"Lincoln", "Jeffreson", "Clinton"};
     size_t size = sizeof(strs)/sizeof(strs[0]);

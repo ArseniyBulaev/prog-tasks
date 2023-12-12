@@ -65,3 +65,18 @@ Node * List::search(const char * target) const{
     }
     return nullptr;
  }
+
+ void List::erase(char * element){
+    Node * element_to_delete = search(element);
+    Node * predecessor_of_element_to_delete;
+    if (element_to_delete != nullptr){
+        predecessor_of_element_to_delete = predecessor(element);
+        if (predecessor_of_element_to_delete == nullptr){
+            head = element_to_delete->next;
+        }
+        else{
+            predecessor_of_element_to_delete->next = element_to_delete->next;
+        }
+        delete element_to_delete;
+    }
+ }
