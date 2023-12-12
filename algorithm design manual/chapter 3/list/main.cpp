@@ -19,11 +19,23 @@ void search_test(const List & source){
     
 }
 
+void insert_test(List & source){
+    char * some_string = "Bulka";
+    source.insert("Bulka");
+    if(source.search(some_string)){
+        std::cout << some_string << " inserted into source" << std::endl;
+    }
+    else{
+        std::cout << "something wrong happend T_T" << std::endl;
+    }
+}
+
 int main(){
     char * strs[] = {"Lincoln", "Jeffreson", "Clinton"};
     size_t size = sizeof(strs)/sizeof(strs[0]);
     List my_list = List(strs,3);
     my_list.print();
-    search_test(my_list);
+    // search_test(my_list);
+    insert_test(my_list);
     return 0;
 }

@@ -43,3 +43,9 @@ Node * List::search(const char * target) const{
     }
     return current;
 }
+
+// Constant complexity: Theta(1)
+ void List::insert(char * element){
+    Node * p = new Node{element, head};
+    head = p;
+ }

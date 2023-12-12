@@ -12,4 +12,5 @@ public:
     ~List();
     void print();
     Node * search(const char * target) const;
+    void insert(char * element);
 };
