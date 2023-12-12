@@ -31,3 +31,15 @@ void List::print(){
     }
     std::cout << std::endl;
 }
+
+// Linear complexity:  Theta(n)
+Node * List::search(const char * target) const{
+    Node * current = head;
+    while(current != nullptr){
+        if (current->data == target){
+            return current;
+        }
+        current = current->next;
+    }
+    return current;
+}

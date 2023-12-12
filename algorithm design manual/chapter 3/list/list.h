@@ -11,4 +11,5 @@ public:
     List(char ** strs, int size);
     ~List();
     void print();
+    Node * search(const char * target) const;
 };
