@@ -21,6 +21,22 @@ List::List(char ** strs, int size){
     }
 }
 
+List::List(const List & source){
+    Node * current_source = source.head;
+    Node * current_this;
+    if (current_source != nullptr)
+    {
+        head = new Node{current_source->data, nullptr};
+        current_source = current_source->next;
+        current_this = head;
+        while(current_source != nullptr){
+            current_this->next = new Node{current_source->data, nullptr};
+            current_this = current_this->next;
+            current_source = current_source->next;
+        }
+    }
+}
+
 
 void List::print(){  
     const Node * current = head;

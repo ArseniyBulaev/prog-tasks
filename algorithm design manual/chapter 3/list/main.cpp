@@ -62,9 +62,10 @@ int main(){
     char * strs[] = {"Lincoln", "Jeffreson", "Clinton"};
     size_t size = sizeof(strs)/sizeof(strs[0]);
     List my_list = List(strs,3);
+    List my_list_copy = my_list;
     my_list.print();
     // search_test(my_list);
     // insert_test(my_list);
-    predecessor_test(my_list, strs, size);
+    // predecessor_test(my_list, strs, size);
     return 0;
 }
