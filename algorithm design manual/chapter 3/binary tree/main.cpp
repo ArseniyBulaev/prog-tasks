@@ -15,6 +15,6 @@ int main(){
     int array [] = {1, 6, 3, 1, 2, 6};
     size_t array_size = sizeof(array) / sizeof(array[0]);
     Tree root(array, array_size);
-    
+    Tree copy = root;
     return 0;
 }
