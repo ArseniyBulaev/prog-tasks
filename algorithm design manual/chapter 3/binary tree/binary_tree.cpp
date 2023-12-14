@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "binary_tree.h"
 
 Tree::Tree(int * array, size_t array_size){
@@ -8,6 +10,7 @@ Tree::Tree(int * array, size_t array_size){
     }
 }
 
+// O(h), h - tree height
 void Tree::insert_tree(Node ** came_from, int item, Node * parent){
     if (*came_from == nullptr){
         Node * new_node = new Node();
@@ -27,14 +30,25 @@ void Tree::insert_tree(Node ** came_from, int item, Node * parent){
     
 }
 
+// O(h), h - tree height
 void Tree::traverse(void (*operation) (Node * node), Node * node_p){
     if (node_p != nullptr){
         traverse(operation, node_p->left);
-        operation(node_p);
         traverse(operation, node_p->right);
+        operation(node_p);
     }
 }
 
 void Tree::traverse(void (*operation) (Node * node)){
     traverse(operation, head);
+}
+
+
+Tree:: ~Tree(){
+    std::cout << "DESTRUCTION:" << std::endl;
+    traverse([](Node * p) {
+        std::cout << "deleting a node with item: ";
+        std::cout<< p->item << std::endl;
+        delete p;
+    });
 }
