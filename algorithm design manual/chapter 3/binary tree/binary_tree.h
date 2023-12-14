@@ -2,20 +2,24 @@
 
 #include <cstddef>
 
+struct Node
+{
+    int item;
+    Node * parent = nullptr;
+    Node * left = nullptr;
+    Node * right = nullptr;
+};
+
+
 class Tree{
 private:
-    int item;
-    Tree * parent = nullptr;
-    Tree * left = nullptr;
-    Tree * right = nullptr;
-    void traverse(void (*operation) (Tree * node_p), Tree * node_p);
+    Node * head;
+    void traverse(void (*operation) (Node * node_p), Node * node_p);
 public:
     Tree() = default;
     Tree(int * array, size_t array_size);
     // O(h), h - tree height
-    void insert_tree(Tree ** came_from, int item, Tree * parent);
-    void traverse(void (*operation) (Tree * node_p));
-    const Tree * get_parent() const;
-    int get_item() const;
+    void insert_tree(Node ** came_from, int item, Node * parent);
+    void traverse(void (*operation) (Node * node_p));
 };
 

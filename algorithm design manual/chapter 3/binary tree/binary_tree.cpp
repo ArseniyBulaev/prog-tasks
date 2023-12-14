@@ -1,16 +1,16 @@
 #include "binary_tree.h"
 
 Tree::Tree(int * array, size_t array_size){
-    this->item = array[0];
-    Tree * head = this;
-    for(size_t i = 1; i < array_size; ++i){
+    for(size_t i = 0; i < array_size; ++i){
+        // Начинаем всегда с head, а родителя у него нет
+        // Следоватьльно, можно передавать nullptr при вызове
         insert_tree(&head, array[i], nullptr);
     }
 }
 
-void Tree::insert_tree(Tree ** came_from, int item, Tree * parent){
+void Tree::insert_tree(Node ** came_from, int item, Node * parent){
     if (*came_from == nullptr){
-        Tree * new_node = new Tree();
+        Node * new_node = new Node();
         new_node->item = item;
         new_node->left = new_node->right = nullptr;
         new_node->parent = parent;
@@ -27,7 +27,7 @@ void Tree::insert_tree(Tree ** came_from, int item, Tree * parent){
     
 }
 
-void Tree::traverse(void (*operation) (Tree * node), Tree * node_p){
+void Tree::traverse(void (*operation) (Node * node), Node * node_p){
     if (node_p != nullptr){
         traverse(operation, node_p->left);
         operation(node_p);
@@ -35,14 +35,6 @@ void Tree::traverse(void (*operation) (Tree * node), Tree * node_p){
     }
 }
 
-void Tree::traverse(void (*operation) (Tree * node)){
-    traverse(operation, this);
-}
-
-const Tree * Tree::get_parent() const{
-    return this->parent;
-}
-
-int Tree::get_item() const{
-    return this->item;
+void Tree::traverse(void (*operation) (Node * node)){
+    traverse(operation, head);
 }
