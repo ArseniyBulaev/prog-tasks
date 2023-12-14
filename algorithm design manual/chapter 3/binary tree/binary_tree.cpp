@@ -1,11 +1,11 @@
 #include "binary_tree.h"
 
 Tree::Tree(int * array, size_t array_size){
-    Tree * head = nullptr;
-    for(size_t i = 0; i < array_size; ++i){
+    this->item = array[0];
+    Tree * head = this;
+    for(size_t i = 1; i < array_size; ++i){
         insert_tree(&head, array[i], nullptr);
     }
-    *this = *head;
 }
 
 void Tree::insert_tree(Tree ** came_from, int item, Tree * parent){
@@ -25,4 +25,24 @@ void Tree::insert_tree(Tree ** came_from, int item, Tree * parent){
         insert_tree(&((*came_from)->right), item, *came_from);
     }
     
+}
+
+void Tree::traverse(void (*operation) (Tree * node), Tree * node_p){
+    if (node_p != nullptr){
+        traverse(operation, node_p->left);
+        operation(node_p);
+        traverse(operation, node_p->right);
+    }
+}
+
+void Tree::traverse(void (*operation) (Tree * node)){
+    traverse(operation, this);
+}
+
+const Tree * Tree::get_parent() const{
+    return this->parent;
+}
+
+int Tree::get_item() const{
+    return this->item;
 }
