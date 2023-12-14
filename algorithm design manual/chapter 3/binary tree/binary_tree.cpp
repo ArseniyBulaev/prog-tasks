@@ -10,6 +10,27 @@ Tree::Tree(int * array, size_t array_size){
     }
 }
 
+Node * Tree::copy(const Node & copy_from, Node * parent){
+    Node * new_node = new Node();
+    new_node->item = copy_from.item;
+    new_node->left = new_node->right = nullptr;
+    new_node->parent = parent;
+
+    if (copy_from.left != nullptr){
+        new_node->left = copy(*(copy_from.left), new_node);
+    }
+
+    if (copy_from.right != nullptr){
+        new_node->right = copy(*(copy_from.right), new_node);
+    }
+    
+    return new_node;
+}
+
+Tree::Tree(const Tree & copy_from){
+    head = copy(*(copy_from.head), nullptr);
+}
+
 // O(h), h - tree height
 void Tree::insert_tree(Node ** came_from, int item, Node * parent){
     if (*came_from == nullptr){
