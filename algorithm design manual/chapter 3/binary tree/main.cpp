@@ -47,17 +47,17 @@ void minimum_test(const Tree & tree){
 void remove_test(Tree & tree){
     Tree test1 = tree;
     // Вершина без потомков
-    test1.remove(1);
+    test1.remove(3);
     Tree test2 = tree;
     // Вершина с одиним потомком
-    test2.remove(3);
+    test2.remove(6);
     Tree test3 = tree;
     // Вершина с двумя потомками
-    test3.remove(2);
+    test3.remove(4);
 }
 
 void test(){
-    int array [] = {2, 1, 3, 4};
+    int array [] = {2, 1, 7, 8, 4, 3, 6, 5};
     size_t array_size = sizeof(array) / sizeof(array[0]);
     Tree root(array, array_size);
     remove_test(root);

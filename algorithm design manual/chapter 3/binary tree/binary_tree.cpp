@@ -153,28 +153,14 @@ void Tree::remove(int item){
         min = min->left;
     }
     // Отвязывание его от его предка
-    min->parent = nullptr;
-    // Вставка на место удаляемого узла
-    // Переподвязование родителя
-    if(node->parent != nullptr){
-        if(node->item < node->parent->item){
-            node->parent->left = min;
-        }
-        else{
-            node->parent->right = min;
-        }
+    node->item = min->item;
+    if(node->right != min) min->parent->left = nullptr;
+    else{
+        node->right = min->right;
+        min->right->parent = node;
     }
-    min->parent = node->parent;
-    // Переподвязование дочерних вершин
-    min->left = node->left;
-    if (node->right != min)
-        min->right = node->right;
-    node->left->parent = min;
-    if(node->right != min)
-        node->right->parent = min;
-    // Если удаляемая вершина это корень
-    if (head == node) head = min;   
-    delete node; 
+   
+    delete min;
 }
 
 
