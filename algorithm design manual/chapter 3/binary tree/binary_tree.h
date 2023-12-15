@@ -17,6 +17,7 @@ private:
     void traverse(void (*operation) (Node * node_p), Node * node_p);
     Node * copy(const Node & copy_from, Node * parent);
     Node * search(Node * current, int target) const;
+
 public:
     Tree() = default;
     Tree(int * array, size_t array_size);
@@ -26,6 +27,7 @@ public:
     Node * minimum() const;
     Node * maximum() const;
     void traverse(void (*operation) (Node * node_p));
+    void remove(int item);
     ~Tree();
 };
 

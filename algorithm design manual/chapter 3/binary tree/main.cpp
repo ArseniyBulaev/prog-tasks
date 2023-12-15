@@ -44,14 +44,28 @@ void minimum_test(const Tree & tree){
     cout << "value of min element of the tree: " << min->item << endl;
 } 
 
+void remove_test(Tree & tree){
+    Tree test1 = tree;
+    // Вершина без потомков
+    test1.remove(1);
+    Tree test2 = tree;
+    // Вершина с одиним потомком
+    test2.remove(3);
+    Tree test3 = tree;
+    // Вершина с двумя потомками
+    test3.remove(2);
+}
+
 void test(){
-    int array [] = {1, 6, 3, 1, 2, 6};
+    int array [] = {2, 1, 3, 4};
     size_t array_size = sizeof(array) / sizeof(array[0]);
     Tree root(array, array_size);
-    search_test(root, array, array_size);
-    //minimum_test(root);
-    //maximum_test(root);
+    remove_test(root);
+    // search_test(root, array, array_size);
+    // minimum_test(root);
+    // maximum_test(root);
 }
+
 
 int main(){
     test();

@@ -93,6 +93,90 @@ void Tree::traverse(void (*operation) (Node * node)){
     traverse(operation, head);
 }
 
+void Tree::remove(int item){
+    Node * node = search(item);
+    // Несуществующая вершина
+    if (node == nullptr) return;
+
+    // Удаление вершины без потомков
+    if((node->left == nullptr) && (node->right == nullptr)){
+        if(node->item < node->parent->item){
+            node->parent->left = nullptr;
+        }
+        else{
+            node->parent->right = nullptr;
+        }
+        // Если удаляемая вершина это корень
+        if (head == node) head = nullptr;
+        delete node;
+        return;
+    }
+
+    // Удаление вершины с одним потомком
+    // Правая вершина
+    if((node->left == nullptr) && !(node->right == nullptr)){
+       if((node->right->left == nullptr) && (node->right->right == nullptr)){
+            if(node->item < node->parent->item){
+                node->parent->left = node->right;
+            }
+            else{
+                node->parent->right = node->right;
+            }
+        // Если удаляемая вершина это корень
+        if (head == node) head = node->right;
+        delete node;
+        return;
+       }    
+    }
+    // Левая вершина
+    if(!(node->left == nullptr) && (node->right == nullptr)){
+       if((node->left->left == nullptr) && (node->left->right == nullptr)){
+            if(node->item < node->parent->item){
+                node->parent->left = node->left;
+            }
+            else{
+                node->parent->right = node->left;
+            }
+        // Если удаляемая вершина это корень
+        if (head == node) head = node->left;
+        delete node;
+        return;
+       }    
+    }
+
+    // Вершина с двумя потомками
+    // Нужно найти самый левый узел в правом поддереве родительского дерева (дерево, которое удаляется)
+    // Поиск нужного узла
+    Node * min;
+    if(head != nullptr) min = node->right;
+    while (min->left != nullptr){
+        min = min->left;
+    }
+    // Отвязывание его от его предка
+    min->parent = nullptr;
+    // Вставка на место удаляемого узла
+    // Переподвязование родителя
+    if(node->parent != nullptr){
+        if(node->item < node->parent->item){
+            node->parent->left = min;
+        }
+        else{
+            node->parent->right = min;
+        }
+    }
+    min->parent = node->parent;
+    // Переподвязование дочерних вершин
+    min->left = node->left;
+    if (node->right != min)
+        min->right = node->right;
+    node->left->parent = min;
+    if(node->right != min)
+        node->right->parent = min;
+    // Если удаляемая вершина это корень
+    if (head == node) head = min;   
+    delete node; 
+}
+
 
 Tree:: ~Tree(){
     std::cout << "DESTRUCTION:" << std::endl;
