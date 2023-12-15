@@ -11,7 +11,7 @@ void traverse_test(Tree & tree){
     });
 }
 
-void search_test(Tree & tree, int * items_to_search, size_t items_to_search_size){
+void search_test(const Tree & tree, int * items_to_search, size_t items_to_search_size){
     cout << "SEARCH:" << endl;
     Node * search_result = nullptr;
     for(size_t i = 0; i < items_to_search_size; ++i){
@@ -48,9 +48,9 @@ void test(){
     int array [] = {1, 6, 3, 1, 2, 6};
     size_t array_size = sizeof(array) / sizeof(array[0]);
     Tree root(array, array_size);
-    // search_test(root, array, array_size);
-    minimum_test(root);
-    maximum_test(root);
+    search_test(root, array, array_size);
+    //minimum_test(root);
+    //maximum_test(root);
 }
 
 int main(){

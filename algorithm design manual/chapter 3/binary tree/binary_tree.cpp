@@ -51,14 +51,14 @@ void Tree::insert(Node ** came_from, int item, Node * parent){
     
 }
 
-Node * Tree::search(Node * current, int target){
+Node * Tree::search(Node * current, int target) const{
     if(current == nullptr) return nullptr;
     if(current->item == target) return current;
     if(current->item > target) return search(current->left, target);
     else return search(current->right, target);
 }
 
-Node * Tree::search(int target){
+Node * Tree::search(int target) const{
     return search(head, target);
 }
 
