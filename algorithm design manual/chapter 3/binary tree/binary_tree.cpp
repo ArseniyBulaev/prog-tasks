@@ -152,7 +152,7 @@ void Tree::remove(int item){
     while (min->left != nullptr){
         min = min->left;
     }
-    // Отвязывание его от его предка
+    // Подмена найденого и удаляемого узлов
     node->item = min->item;
     if(node->right != min) min->parent->left = nullptr;
     else{
