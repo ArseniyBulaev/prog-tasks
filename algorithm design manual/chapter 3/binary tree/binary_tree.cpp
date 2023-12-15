@@ -51,6 +51,17 @@ void Tree::insert(Node ** came_from, int item, Node * parent){
     
 }
 
+Node * Tree::search(Node * current, int target){
+    if(current == nullptr) return nullptr;
+    if(current->item == target) return current;
+    if(current->item > target) return search(current->left, target);
+    else return search(current->right, target);
+}
+
+Node * Tree::search(int target){
+    return search(head, target);
+}
+
 // O(h), h - tree height
 void Tree::traverse(void (*operation) (Node * node), Node * node_p){
     if (node_p != nullptr){
