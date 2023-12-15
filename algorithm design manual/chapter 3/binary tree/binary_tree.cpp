@@ -6,7 +6,7 @@ Tree::Tree(int * array, size_t array_size){
     for(size_t i = 0; i < array_size; ++i){
         // Начинаем всегда с head, а родителя у него нет
         // Следоватьльно, можно передавать nullptr при вызове
-        insert_tree(&head, array[i], nullptr);
+        insert(&head, array[i], nullptr);
     }
 }
 
@@ -32,7 +32,7 @@ Tree::Tree(const Tree & copy_from){
 }
 
 // O(h), h - tree height
-void Tree::insert_tree(Node ** came_from, int item, Node * parent){
+void Tree::insert(Node ** came_from, int item, Node * parent){
     if (*came_from == nullptr){
         Node * new_node = new Node();
         new_node->item = item;
@@ -43,10 +43,10 @@ void Tree::insert_tree(Node ** came_from, int item, Node * parent){
     }
 
     if(item < (*came_from)->item){
-        insert_tree(&((*came_from)->left), item, *came_from);
+        insert(&((*came_from)->left), item, *came_from);
     }
     else{
-        insert_tree(&((*came_from)->right), item, *came_from);
+        insert(&((*came_from)->right), item, *came_from);
     }
     
 }
