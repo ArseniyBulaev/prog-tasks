@@ -17,6 +17,9 @@ private:
     void traverse(void (*operation) (Node * node_p), Node * node_p);
     Node * copy(const Node & copy_from, Node * parent);
     Node * search(Node * current, int target) const;
+    void remove_if_leaf(Node *);
+    void remove_if_one_child(Node *);
+    void remove_if_two_children(Node *);
 
 public:
     Tree() = default;

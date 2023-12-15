@@ -93,74 +93,98 @@ void Tree::traverse(void (*operation) (Node * node)){
     traverse(operation, head);
 }
 
-void Tree::remove(int item){
-    Node * node = search(item);
-    // Несуществующая вершина
-    if (node == nullptr) return;
-
-    // Удаление вершины без потомков
-    if((node->left == nullptr) && (node->right == nullptr)){
-        if(node->item < node->parent->item){
-            node->parent->left = nullptr;
+void Tree::remove_if_leaf(Node * to_delete){
+    if(to_delete != head){
+        Node * parent = to_delete->parent;
+        if(to_delete->item >= parent->item){
+            parent->right = nullptr;
         }
         else{
-            node->parent->right = nullptr;
+            parent->left = nullptr;
         }
-        // Если удаляемая вершина это корень
-        if (head == node) head = nullptr;
-        delete node;
-        return;
     }
-
-    // Удаление вершины с одним потомком
-    // Правая вершина
-    if((node->left == nullptr) && !(node->right == nullptr)){
-       if((node->right->left == nullptr) && (node->right->right == nullptr)){
-            if(node->item < node->parent->item){
-                node->parent->left = node->right;
-            }
-            else{
-                node->parent->right = node->right;
-            }
-        // Если удаляемая вершина это корень
-        if (head == node) head = node->right;
-        delete node;
-        return;
-       }    
-    }
-    // Левая вершина
-    if(!(node->left == nullptr) && (node->right == nullptr)){
-       if((node->left->left == nullptr) && (node->left->right == nullptr)){
-            if(node->item < node->parent->item){
-                node->parent->left = node->left;
-            }
-            else{
-                node->parent->right = node->left;
-            }
-        // Если удаляемая вершина это корень
-        if (head == node) head = node->left;
-        delete node;
-        return;
-       }    
-    }
-
-    // Вершина с двумя потомками
-    // Нужно найти самый левый узел в правом поддереве родительского дерева (дерево, которое удаляется)
-    // Поиск нужного узла
-    Node * min;
-    if(head != nullptr) min = node->right;
-    while (min->left != nullptr){
-        min = min->left;
-    }
-    // Подмена найденого и удаляемого узлов
-    node->item = min->item;
-    if(node->right != min) min->parent->left = nullptr;
     else{
-        node->right = min->right;
-        min->right->parent = node;
+        head = nullptr;
     }
-   
-    delete min;
+}
+
+void Tree::remove_if_one_child(Node * to_delete){
+  Node * child = to_delete->left != nullptr? to_delete->left : to_delete->right;
+  if(to_delete != head){
+        Node * parent = to_delete->parent;
+        if(to_delete->item >= parent->item){
+            parent->right = child;
+        }
+        else{
+            parent->left = child;
+        }
+        child->parent = parent;
+    }
+    else{
+        head = child;
+        child->parent = nullptr;
+    }
+}
+
+void Tree::remove_if_two_children(Node * to_delete){
+    // Самый левый узел в правом дереве родительского поддерева
+    Node * most_left = to_delete->right;
+    while (most_left->left != nullptr){
+        most_left = most_left->left;
+    }
+    // Нужно удалить предка у самого левого
+    if(most_left != to_delete->right) most_left->parent->left=nullptr;
+    // Самый правый узел в самом левом узле
+    Node * most_right = most_left;
+    while (most_right->right != nullptr){
+        most_right = most_right->right;
+    }
+
+    // Переподвешиваем потомков удаляемого узла
+    most_left->left = to_delete->left;
+    to_delete->left->parent = most_left;
+    // Если самый правый в самом левом не равен правому в узле, который удаляем
+    if(most_right != to_delete->right)
+        most_right->right = to_delete->right;
+    to_delete->right->parent = most_right;
+
+    // Связь с исходным родителем
+    if(to_delete != head){
+        Node * parent = to_delete->parent;
+        if(to_delete->item >= parent->item){
+            parent->right = most_left;
+        }
+        else{
+            parent->left = most_left;
+        }
+        most_left->parent = parent;
+    }
+    else{
+        head = most_left;
+        most_left->parent = nullptr;
+    }
+
+}
+
+void Tree::remove(int item){
+   // Чтобы удалить ноду её нужно сначала найти
+   Node * to_delete = search(item);
+   // Если такой ноды нет, то ничего не нужно делать
+   if (to_delete == nullptr) return;
+   // Если нода является листом
+   if(to_delete->left == nullptr && to_delete->right == nullptr){ 
+        remove_if_leaf(to_delete);
+   }
+   // Если нода имеет двух потомков
+   else if (to_delete->left != nullptr && to_delete->right != nullptr){
+        remove_if_two_children(to_delete);
+   }
+   // Если у ноды один потомок
+   else{
+        remove_if_one_child(to_delete);
+   }
+   // Почистить ресурсы
+   delete to_delete;
 }
 
 
