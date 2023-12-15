@@ -30,13 +30,30 @@ void search_test(Tree & tree, int * items_to_search, size_t items_to_search_size
     else{
         cout << "search result is empty" << endl;
     }
-
 }
 
-int main(){
+void maximum_test(const Tree & tree){
+    cout << "MAXIMUM:" << endl;
+    Node * max = tree.maximum();
+    cout << "value of max element of the tree: " << max->item << endl;
+}
+
+void minimum_test(const Tree & tree){
+    cout << "MINIMUM:" << endl;
+    Node * min = tree.minimum();
+    cout << "value of min element of the tree: " << min->item << endl;
+} 
+
+void test(){
     int array [] = {1, 6, 3, 1, 2, 6};
     size_t array_size = sizeof(array) / sizeof(array[0]);
     Tree root(array, array_size);
-    search_test(root, array, array_size);
+    // search_test(root, array, array_size);
+    minimum_test(root);
+    maximum_test(root);
+}
+
+int main(){
+    test();
     return 0;
 }

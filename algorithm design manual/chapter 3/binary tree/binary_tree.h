@@ -23,6 +23,8 @@ public:
     Tree(const Tree & copy_from);
     void insert(Node ** came_from, int item, Node * parent);
     Node * search(int target);
+    Node * minimum() const;
+    Node * maximum() const;
     void traverse(void (*operation) (Node * node_p));
     ~Tree();
 };

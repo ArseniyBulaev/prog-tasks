@@ -62,6 +62,24 @@ Node * Tree::search(int target){
     return search(head, target);
 }
 
+Node * Tree::minimum() const {
+    Node * min;
+    if(head != nullptr) min = head;
+    while (min->left != nullptr){
+        min = min->left;
+    }
+    return min;
+}
+
+Node * Tree::maximum() const {
+    Node * max;
+    if(head != nullptr) max = head;
+    while (max -> right != nullptr){
+        max = max->right;
+    }
+    return max;
+}
+
 // O(h), h - tree height
 void Tree::traverse(void (*operation) (Node * node), Node * node_p){
     if (node_p != nullptr){
