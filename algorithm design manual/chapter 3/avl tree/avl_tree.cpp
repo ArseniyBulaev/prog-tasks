@@ -1,9 +1,24 @@
+#include <iostream>
+
 #include "avl_tree.h"
 
 AVLTree::AVLTree(const std::vector<int> & values){
     for(int value: values){
         insert(value);
     }
+}
+
+void AVLTree::delete_tree(AVLNode * node){
+    if(node == nullptr) return;
+    delete_tree(node->left);
+    delete_tree(node->right);
+    std::cout << "Bye bye node with value: " << node->item << std::endl;
+    delete node;
+}
+
+AVLTree::~AVLTree(){
+  std::cout << "Destructor (sounds of death...):" << std::endl;
+  delete_tree(head);
 }
 
 void AVLTree::insert(int item){
