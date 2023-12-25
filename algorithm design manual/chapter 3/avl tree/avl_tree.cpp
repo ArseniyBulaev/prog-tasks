@@ -54,3 +54,22 @@ AVLNode * AVLTree::rotate_right(AVLNode * x){
    fix_height(y);
    return y;
 }
+
+AVLNode * AVLTree::balance(AVLNode * x){
+    fix_height(x);
+    if(x->height == 2){
+        // Если зашли сюда значит выполняется RL-поворот
+        // Иначе RR-поворот
+        if(calc_balance_factor(x->right) < 0)
+			x->right = rotate_right(x->right);
+		return rotate_left(x);
+    }
+    if(x->height == -2){
+        // Если зашли сюда значит выполняется LR-поворот
+        // Иначе LL-поворот
+        if(calc_balance_factor(x->left) > 0)
+			x->left = rotate_left(x->left);
+		return rotate_right(x);
+    }
+    return x; // Балансировка не нужна
+}

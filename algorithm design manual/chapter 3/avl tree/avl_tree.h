@@ -25,4 +25,5 @@ private:
     static void fix_height(AVLNode * node);
     static AVLNode * rotate_left(AVLNode * node);
     static AVLNode * rotate_right(AVLNode * node);
+    static AVLNode * balance(AVLNode * node);
 };
