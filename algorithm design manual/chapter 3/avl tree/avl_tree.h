@@ -20,5 +20,5 @@ public:
 private:
     AVLNode * head;
     void insert(AVLNode * node, int item);
-    static size_t height(AVLNode * node);
+    static size_t get_height(AVLNode * node);
 };
