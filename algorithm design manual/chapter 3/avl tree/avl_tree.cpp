@@ -7,7 +7,7 @@ AVLTree::AVLTree(const std::vector<int> & values){
 }
 
 void AVLTree::insert(int item){
-     insert(head, item);   
+     head = insert(head, item);   
 }
 
 AVLNode * AVLTree::insert(AVLNode * current, int item){
@@ -20,9 +20,11 @@ AVLNode * AVLTree::insert(AVLNode * current, int item){
     // Ищем место для вставки
     if (item < current->item){
         current->left = insert(current->left, item);
+        current->left->parent = current;
     }
     else{
         current->right = insert(current->right, item);
+        current->right->parent = current;
     }
     // Балансировка
     return balance(current);
