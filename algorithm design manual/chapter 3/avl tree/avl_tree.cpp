@@ -4,21 +4,22 @@ void AVLTree::insert(int item){
      insert(head, item);   
 }
 
-void AVLTree::insert(AVLNode * current, int item){
+AVLNode * AVLTree::insert(AVLNode * current, int item){
     // Место для вставки найдено
     if (current == nullptr){
-        current = new AVLNode(item);
-        return;
+        return new AVLNode(item);
     }
     // Одинаковые элементы не всталяем
-    if (current->item == item) return;
+    if (current->item == item) return current;
     // Ищем место для вставки
     if (item < current->item){
-        insert(current->left, item);
+        current->left = insert(current->left, item);
     }
     else{
-        insert(current->right, item);
+        current->right = insert(current->right, item);
     }
+    // Балансировка
+    balance(current);
 }
 
 size_t AVLTree::get_height(AVLNode * node){
