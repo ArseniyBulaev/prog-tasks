@@ -25,7 +25,7 @@ AVLNode * AVLTree::insert(AVLNode * current, int item){
         current->right = insert(current->right, item);
     }
     // Балансировка
-    balance(current);
+    return balance(current);
 }
 
 size_t AVLTree::get_height(AVLNode * node){
