@@ -30,3 +30,9 @@ int AVLTree::calc_balance_factor(AVLNode * node){
     AVLNode * right_node = node->right;
     return get_height(left_node) - get_height(right_node);
 }
+
+void AVLTree::fix_height(AVLNode * node){
+    size_t left_height = get_height(node->left);
+    size_t right_height = get_height(node->right);
+    node->height = left_height > right_height ? left_height : right_height;
+}

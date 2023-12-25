@@ -22,4 +22,5 @@ private:
     void insert(AVLNode * node, int item);
     static size_t get_height(AVLNode * node);
     static int calc_balance_factor(AVLNode * node);
+    static void fix_height(AVLNode * node);
 };
