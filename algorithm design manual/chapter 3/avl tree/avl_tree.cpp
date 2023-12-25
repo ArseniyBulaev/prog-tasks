@@ -36,3 +36,21 @@ void AVLTree::fix_height(AVLNode * node){
     size_t right_height = get_height(node->right);
     node->height = left_height > right_height ? left_height : right_height;
 }
+
+AVLNode * AVLTree::rotate_left(AVLNode * x){
+   AVLNode * y = x->left;
+   x->left = y->right;
+   y->right = x;
+   fix_height(x);
+   fix_height(y);
+   return y;
+}
+
+AVLNode * AVLTree::rotate_right(AVLNode * x){
+   AVLNode * y = x->right;
+   x->right = y->left;
+   y->left = x;
+   fix_height(x);
+   fix_height(y);
+   return y;
+}
