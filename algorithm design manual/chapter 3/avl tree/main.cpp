@@ -23,13 +23,9 @@ std::vector<int> generate_random_vector(size_t size){
     return vec;
 }
 
-void insert_test(const std::vector<int> & random_vector, AVLTree & tree){
-    for(int random_number: random_vector){
-        tree.insert(random_number);
-    }
-}
-
 int main(){
-    AVLTree tree;
+    size_t test_input_size = 10;
+    std::vector<int> random_values = generate_random_vector(test_input_size);
+    AVLTree tree(random_values);
     return 0;
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <vector>
 
 struct AVLNode{
     int item;
@@ -16,6 +17,7 @@ struct AVLNode{
 
 class AVLTree{
 public:
+    AVLTree(const std::vector<int> & values);
     void insert(int item);
 private:
     AVLNode * head;

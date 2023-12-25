@@ -1,5 +1,11 @@
 #include "avl_tree.h"
 
+AVLTree::AVLTree(const std::vector<int> & values){
+    for(int value: values){
+        insert(value);
+    }
+}
+
 void AVLTree::insert(int item){
      insert(head, item);   
 }
