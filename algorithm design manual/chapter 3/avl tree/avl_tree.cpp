@@ -8,6 +8,27 @@ AVLTree::AVLTree(const std::vector<int> & values){
     }
 }
 
+AVLNode * AVLTree::create_from(AVLNode * original){
+    AVLNode * copy = nullptr;
+    if(original != nullptr){
+        // Копируем содержимое
+        copy = new AVLNode(original->item);
+        // Копируем высоту
+        copy->height = original->height;
+        // Копируем левую ветку
+        copy->left = create_from(original->left);
+        if(copy->left != nullptr) copy->left->parent = copy;
+        // Копируем правую ветку
+        copy->right = create_from(original->right);
+        if(copy->right != nullptr) copy->right->parent = copy;
+    } 
+    return copy;
+}
+
+AVLTree::AVLTree(const AVLTree & tree){
+    head = create_from(tree.head);
+}
+
 void AVLTree::delete_tree(AVLNode * node){
     if(node == nullptr) return;
     delete_tree(node->left);

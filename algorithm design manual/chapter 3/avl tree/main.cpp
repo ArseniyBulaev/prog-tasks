@@ -24,8 +24,9 @@ std::vector<int> generate_random_vector(size_t size){
 }
 
 int main(){
-    size_t test_input_size = 10;
+    size_t test_input_size = 5;
     std::vector<int> random_values = generate_random_vector(test_input_size);
     AVLTree tree(random_values);
+    AVLTree copy = tree;
     return 0;
 }
