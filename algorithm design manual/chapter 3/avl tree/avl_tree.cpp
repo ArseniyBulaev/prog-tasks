@@ -24,3 +24,9 @@ void AVLTree::insert(AVLNode * current, int item){
 size_t AVLTree::get_height(AVLNode * node){
     return node != nullptr ? node->height : 0;
 }
+
+int AVLTree::calc_balance_factor(AVLNode * node){
+    AVLNode * left_node = node->left;
+    AVLNode * right_node = node->right;
+    return get_height(left_node) - get_height(right_node);
+}
