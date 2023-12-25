@@ -21,3 +21,6 @@ void AVLTree::insert(AVLNode * current, int item){
     }
 }
 
+size_t AVLTree::height(AVLNode * node){
+    return node != nullptr ? node->height : 0;
+}
