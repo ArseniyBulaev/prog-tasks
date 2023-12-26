@@ -12,6 +12,13 @@ struct AVLNode{
 };
 
 class AVLTree{
+public:
+    // Test
+    static void test_rl_rotation();
+    static void test_rr_rotation();
+    static void test_lr_rotation();
+    static void test_ll_rotation();
+
 private:
     AVLNode * head;
     static size_t get_height(AVLNode * node);
@@ -19,5 +26,5 @@ private:
     static void restore_height(AVLNode * node);
     static AVLNode * left_rotation(AVLNode * node);
     static AVLNode * right_rotation(AVLNode * node);
-    // TO DO: написать тесты для проверки правильности поворотов
+    static AVLNode * balance(AVLNode * node);
 };

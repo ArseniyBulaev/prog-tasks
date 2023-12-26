@@ -17,7 +17,7 @@ void AVLTree::restore_height(AVLNode * node){
     node->height = std::max(hl, hr) + 1;
 }
 
-AVLNode * AVLTree::left_rotation(AVLNode * root){
+AVLNode * AVLTree::right_rotation(AVLNode * root){
     // Шаги
     // 1. Берём левого потомка
     // 2. Вешаем с левой стороны корня то что было справа у левого потомка
@@ -31,7 +31,7 @@ AVLNode * AVLTree::left_rotation(AVLNode * root){
     return left_child;
 }
 
-AVLNode * AVLTree::right_rotation(AVLNode * root){
+AVLNode * AVLTree::left_rotation(AVLNode * root){
     // Шаги
     // 1. Берём правого потомка 
     // 2. Вешаем с правой стороны корня то что было слева у правого потомка
@@ -43,4 +43,43 @@ AVLNode * AVLTree::right_rotation(AVLNode * root){
     restore_height(root);
     restore_height(right_child);
     return right_child;
+}
+
+AVLNode * AVLTree::balance(AVLNode * node){
+    restore_height(node);
+	if(get_balance_factor(node) == 2)
+	{
+		if(get_balance_factor(node->right) < 0 )
+			node->right = right_rotation(node->right);
+		return left_rotation(node);
+	}
+	if( get_balance_factor(node) == -2)
+	{
+		if(get_balance_factor(node->left) > 0)
+			node->left = left_rotation(node->left);
+		return right_rotation(node);
+	}
+	return node; // балансировка не нужна
+}
+
+void AVLTree::test_rl_rotation(){
+    AVLNode * test = new AVLNode(1);
+    test->right = new AVLNode(3);
+    test->right->left = new AVLNode(2);
+    restore_height(test->right->left);
+    restore_height(test->right);
+    restore_height(test);
+    test = balance(test);
+}
+
+void AVLTree::test_rr_rotation(){
+    
+}
+
+void AVLTree::test_lr_rotation(){
+   
+}
+
+void AVLTree::test_ll_rotation(){
+   
 }

@@ -26,5 +26,6 @@ std::vector<int> generate_random_vector(size_t size){
 }
 
 int main(){
-   
+   AVLTree tree;
+   tree.test_rl_rotation();
 }
