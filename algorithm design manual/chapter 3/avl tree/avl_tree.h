@@ -16,4 +16,5 @@ private:
     AVLNode * head;
     static size_t get_height(AVLNode * node);
     static int get_balance_factor(AVLNode * node);
+    static void restore_height(AVLNode * node);
 };
