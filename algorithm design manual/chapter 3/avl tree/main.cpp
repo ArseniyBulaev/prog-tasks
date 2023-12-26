@@ -6,6 +6,8 @@
 
 #include "avl_tree.h"
 
+using std::cout, std::endl;
+
 std::vector<int> generate_random_vector(size_t size){
     using namespace std;
      // First create an instance of an engine.
@@ -27,6 +29,6 @@ int main(){
     size_t test_input_size = 5;
     std::vector<int> random_values = generate_random_vector(test_input_size);
     AVLTree tree(random_values);
-    AVLTree copy = tree;
+    cout << tree.is_invariant_satisfied() << endl;
     return 0;
 }

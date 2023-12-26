@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 #include "avl_tree.h"
 
@@ -64,6 +65,31 @@ AVLNode * AVLTree::insert(AVLNode * current, int item){
     }
     // Балансировка
     return balance(current);
+}
+
+void AVLTree::is_invariant_satisfied(AVLNode * node, bool & is_sat){
+    if(node == nullptr) return;
+    is_invariant_satisfied(node->left, is_sat);
+    if(is_sat){
+        is_sat = abs(AVLTree::calc_balance_factor(node)) <= 1;
+    }
+    is_invariant_satisfied(node->right, is_sat);
+}
+
+bool AVLTree::is_invariant_satisfied(){
+    bool is_sat = true;
+    is_invariant_satisfied(head, is_sat);
+    return is_sat;
+}
+
+void AVLTree::traverse(void (*operation)(AVLNode * node)){
+    traverse(operation, head);
+}
+
+void AVLTree::traverse(void (*operation)(AVLNode * node),  AVLNode * node){
+    traverse(operation, node->left);
+    operation(node);
+    traverse(operation, node->right);
 }
 
 size_t AVLTree::get_height(AVLNode * node){
