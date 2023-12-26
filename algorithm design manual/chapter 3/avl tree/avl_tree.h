@@ -19,4 +19,5 @@ private:
     static void restore_height(AVLNode * node);
     static AVLNode * left_rotation(AVLNode * node);
     static AVLNode * right_rotation(AVLNode * node);
+    // TO DO: написать тесты для проверки правильности поворотов
 };
