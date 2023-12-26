@@ -3,3 +3,14 @@
 #include <cstddef>
 #include <vector>
 
+struct AVLNode{
+    int item;
+    size_t height = 0;
+    AVLNode * left = nullptr;
+    AVLNode * right = nullptr;
+    AVLNode(int item):item(item), height(1) {}
+};
+
+class AVLTree{
+    AVLNode * head;
+};
