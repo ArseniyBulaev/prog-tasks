@@ -17,4 +17,6 @@ private:
     static size_t get_height(AVLNode * node);
     static int get_balance_factor(AVLNode * node);
     static void restore_height(AVLNode * node);
+    static AVLNode * left_rotation(AVLNode * node);
+    static AVLNode * right_rotation(AVLNode * node);
 };
