@@ -3,6 +3,15 @@
 
 #include "avl_tree.h"
 
+#pragma region public
+void AVLTree::insert(int item){
+    head = insert(item, head);
+}
+
+#pragma endregion
+
+#pragma region private
+
 size_t AVLTree::get_height(AVLNode * node){
     return node != nullptr ? node->height : 0;
 }
@@ -62,3 +71,16 @@ AVLNode * AVLTree::balance(AVLNode * node){
 	return node; // балансировка не нужна
 }
 
+AVLNode * AVLTree::insert(int item, AVLNode * node){
+    if(node == nullptr) return new AVLNode(item);
+    if(node->item == item) return node;
+    if(item < node->item){
+        node->left = insert(item, node->left);
+    }
+    else{
+        node->right = insert(item, node->right);
+    }
+    balance(node);
+}
+
+#pragma endregion

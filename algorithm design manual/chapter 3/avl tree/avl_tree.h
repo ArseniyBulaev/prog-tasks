@@ -13,6 +13,7 @@ struct AVLNode{
 
 class AVLTree{
 public:
+    void insert(int item);
 
 private:
     AVLNode * head;
@@ -22,4 +23,5 @@ private:
     static AVLNode * left_rotation(AVLNode * node);
     static AVLNode * right_rotation(AVLNode * node);
     static AVLNode * balance(AVLNode * node);
+    AVLNode * insert(int item, AVLNode * node);
 };
