@@ -9,7 +9,7 @@ void AVLTree::insert(int item){
 }
 
 void AVLTree::remove(int item){
-    remove(item, head);
+    head = remove(item, head);
 }
 
 void AVLTree::traverse(void(*operation)(AVLNode * node)){
