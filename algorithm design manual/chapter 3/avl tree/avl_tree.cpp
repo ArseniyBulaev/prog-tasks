@@ -8,10 +8,18 @@ void AVLTree::insert(int item){
     head = insert(item, head);
 }
 
+void AVLTree::remove(int item){
+    remove(item, head);
+}
+
 AVLTree::AVLTree(const std::vector<int> & items){
     for(int item : items){
         insert(item);
     }
+}
+
+AVLTree::AVLTree(const AVLTree & tree){
+    head = create_from(tree.head);
 }
 
 AVLTree::~AVLTree(){
@@ -90,6 +98,33 @@ void AVLTree::delete_tree(AVLNode * node){
     delete node;
 }
 
+AVLNode * AVLTree::create_from(AVLNode * original){
+    AVLNode * copy = nullptr;
+    if(original != nullptr){
+        // Копируем содержимое
+        copy = new AVLNode(original->item);
+        // Копируем высоту
+        copy->height = original->height;
+        // Копируем левую ветку
+        copy->left = create_from(original->left);
+        // Копируем правую ветку
+        copy->right = create_from(original->right);
+    } 
+    return copy;
+}
+
+AVLNode * AVLTree::find_min(AVLNode * node){
+    return (node->left != nullptr ? find_min(node->left) : node);
+}
+
+AVLNode * AVLTree::remove_min(AVLNode * node){
+    if(node->left == nullptr){
+        return node->right;
+    }
+    node->left = (node->left);
+    return balance(node);
+}
+
 AVLNode * AVLTree::insert(int item, AVLNode * node){
     if(node == nullptr) return new AVLNode(item);
     if(node->item == item) return node;
@@ -98,6 +133,28 @@ AVLNode * AVLTree::insert(int item, AVLNode * node){
     }
     else{
         node->right = insert(item, node->right);
+    }
+    return balance(node);
+}
+
+AVLNode * AVLTree::remove(int item, AVLNode * node){
+    if(node == nullptr) return node;
+    if(item < node->item){
+        node->left = remove(item, node->left);
+    }
+    else if(item > node->item){
+        node->right = remove(item, node->right);
+    }
+    // Элемент для удаления найден
+    else{
+        AVLNode * left_child = node->left;
+        AVLNode * right_child = node->right;
+        delete node;
+        if(right_child == nullptr) return left_child;
+        AVLNode * min = find_min(right_child);
+        min->right = remove_min(right_child);
+        min->left = left_child;
+        return balance(min);
     }
     return balance(node);
 }

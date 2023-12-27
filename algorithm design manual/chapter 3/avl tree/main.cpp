@@ -29,5 +29,6 @@ int main(){
    size_t number_of_random_values = 5;
    std::vector<int> random_numbers = generate_random_vector(number_of_random_values);
    AVLTree tree(random_numbers);
+   AVLTree copy = tree;
    return 0;
 }
