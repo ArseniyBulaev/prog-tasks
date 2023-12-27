@@ -8,6 +8,17 @@ void AVLTree::insert(int item){
     head = insert(item, head);
 }
 
+AVLTree::AVLTree(const std::vector<int> & items){
+    for(int item : items){
+        insert(item);
+    }
+}
+
+AVLTree::~AVLTree(){
+  std::cout << "Destructor (sounds of death...):" << std::endl;
+  delete_tree(head);
+}
+
 #pragma endregion
 
 #pragma region private
@@ -71,6 +82,14 @@ AVLNode * AVLTree::balance(AVLNode * node){
 	return node; // балансировка не нужна
 }
 
+void AVLTree::delete_tree(AVLNode * node){
+    if(node == nullptr) return;
+    delete_tree(node->left);
+    delete_tree(node->right);
+    std::cout << "Bye bye node with value: " << node->item << std::endl;
+    delete node;
+}
+
 AVLNode * AVLTree::insert(int item, AVLNode * node){
     if(node == nullptr) return new AVLNode(item);
     if(node->item == item) return node;
@@ -80,7 +99,7 @@ AVLNode * AVLTree::insert(int item, AVLNode * node){
     else{
         node->right = insert(item, node->right);
     }
-    balance(node);
+    return balance(node);
 }
 
 #pragma endregion

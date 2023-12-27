@@ -26,6 +26,8 @@ std::vector<int> generate_random_vector(size_t size){
 }
 
 int main(){
-   AVLTree tree;
-   tree.test_rl_rotation();
+   size_t number_of_random_values = 5;
+   std::vector<int> random_numbers = generate_random_vector(number_of_random_values);
+   AVLTree tree(random_numbers);
+   return 0;
 }

@@ -14,7 +14,8 @@ struct AVLNode{
 class AVLTree{
 public:
     void insert(int item);
-
+    AVLTree(const std::vector<int> & items);
+    ~AVLTree();
 private:
     AVLNode * head;
     static size_t get_height(AVLNode * node);
@@ -23,5 +24,6 @@ private:
     static AVLNode * left_rotation(AVLNode * node);
     static AVLNode * right_rotation(AVLNode * node);
     static AVLNode * balance(AVLNode * node);
+    static void delete_tree(AVLNode * node);
     AVLNode * insert(int item, AVLNode * node);
 };
