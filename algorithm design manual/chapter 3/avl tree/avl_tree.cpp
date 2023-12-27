@@ -125,7 +125,7 @@ AVLNode * AVLTree::remove_min(AVLNode * node){
     if(node->left == nullptr){
         return node->right;
     }
-    node->left = (node->left);
+    node->left = remove_min(node->left);
     return balance(node);
 }
 
