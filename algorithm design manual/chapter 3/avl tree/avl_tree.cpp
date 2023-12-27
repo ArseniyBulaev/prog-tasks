@@ -12,6 +12,10 @@ void AVLTree::remove(int item){
     remove(item, head);
 }
 
+void AVLTree::traverse(void(*operation)(AVLNode * node)){
+    traverse(operation, head);
+}
+
 AVLTree::AVLTree(const std::vector<int> & items){
     for(int item : items){
         insert(item);
@@ -157,6 +161,13 @@ AVLNode * AVLTree::remove(int item, AVLNode * node){
         return balance(min);
     }
     return balance(node);
+}
+
+void AVLTree::traverse(void(*operation)(AVLNode * node), AVLNode * node){
+    if(node == nullptr) return;
+    traverse(operation, node->left);
+    operation(node);
+    traverse(operation, node->right);
 }
 
 #pragma endregion

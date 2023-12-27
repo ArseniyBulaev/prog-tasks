@@ -36,14 +36,27 @@ int generate_random_value(int min_value, int max_value){
     return gen();
 }
 
-int main(){
+void remove_test(){
    size_t number_of_random_values = 5;
    int min_value = 1;
    int max_value = 100;
    std::vector<int> random_numbers = generate_random_vector(number_of_random_values, min_value, max_value);
-   size_t random_indx = generate_random_value(0, random_numbers.size());
-   int random_item_from_numbers = random_numbers[random_indx]; 
    AVLTree tree(random_numbers);
-   tree.remove(random_item_from_numbers);
+   cout << "Start:" << endl;
+   tree.traverse([](AVLNode * node){ cout << node->item << endl;});
+   while(!random_numbers.empty()){
+        size_t random_indx = generate_random_value(0, random_numbers.size() - 1);
+        int random_item_from_numbers = random_numbers[random_indx];
+        random_numbers.erase(random_numbers.begin() + random_indx);
+        cout << "Delete: " << random_item_from_numbers << endl; 
+        tree.remove(random_item_from_numbers);
+        cout << "Current state: " << endl;
+        tree.traverse([](AVLNode * node){ cout << node->item << endl;});
+   }
+   
+}
+
+int main(){
+   remove_test();
    return 0;
 }

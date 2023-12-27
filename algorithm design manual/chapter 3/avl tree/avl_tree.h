@@ -15,6 +15,7 @@ class AVLTree{
 public:
     void insert(int item);
     void remove(int item);
+    void traverse(void(*operation)(AVLNode * node));
     AVLTree(const std::vector<int> & items);
     AVLTree(const AVLTree & tree);
     ~AVLTree();
@@ -32,4 +33,5 @@ private:
     static AVLNode * remove_min(AVLNode * node);
     AVLNode * insert(int item, AVLNode * node);
     AVLNode * remove(int item, AVLNode * node);
+    void traverse(void(*operation)(AVLNode * node), AVLNode * node);
 };
