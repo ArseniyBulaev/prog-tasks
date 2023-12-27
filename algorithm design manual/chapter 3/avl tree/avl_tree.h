@@ -19,7 +19,7 @@ public:
     AVLTree(const AVLTree & tree);
     ~AVLTree();
 private:
-    AVLNode * head;
+    AVLNode * head = nullptr;
     static size_t get_height(AVLNode * node);
     static int get_balance_factor(AVLNode * node);
     static void restore_height(AVLNode * node);
