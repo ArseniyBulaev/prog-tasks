@@ -62,24 +62,3 @@ AVLNode * AVLTree::balance(AVLNode * node){
 	return node; // балансировка не нужна
 }
 
-void AVLTree::test_rl_rotation(){
-    AVLNode * test = new AVLNode(1);
-    test->right = new AVLNode(3);
-    test->right->left = new AVLNode(2);
-    restore_height(test->right->left);
-    restore_height(test->right);
-    restore_height(test);
-    test = balance(test);
-}
-
-void AVLTree::test_rr_rotation(){
-    
-}
-
-void AVLTree::test_lr_rotation(){
-   
-}
-
-void AVLTree::test_ll_rotation(){
-   
-}

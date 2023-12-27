@@ -13,11 +13,6 @@ struct AVLNode{
 
 class AVLTree{
 public:
-    // Test
-    static void test_rl_rotation();
-    static void test_rr_rotation();
-    static void test_lr_rotation();
-    static void test_ll_rotation();
 
 private:
     AVLNode * head;
