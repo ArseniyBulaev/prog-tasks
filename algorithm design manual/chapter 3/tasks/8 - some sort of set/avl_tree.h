@@ -36,6 +36,6 @@ private:
     AVLNode * remove(int item, AVLNode * node);
     void traverse(void(*operation)(AVLNode * node), AVLNode * node);
     // Task specific operations
-    static void restore_number_of_smaller_elements(AVLNode * node);
+    static AVLNode * restore_number_of_smaller_elements(AVLNode * node);
     static size_t get_number_of_smaller_elements(AVLNode * node);
 };

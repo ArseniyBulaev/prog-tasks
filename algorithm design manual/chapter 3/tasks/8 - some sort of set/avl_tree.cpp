@@ -126,7 +126,7 @@ AVLNode * AVLTree::remove_min(AVLNode * node){
         return node->right;
     }
     node->left = remove_min(node->left);
-    return balance(node);
+    return restore_number_of_smaller_elements(balance(node));
 }
 
 AVLNode * AVLTree::insert(int item, AVLNode * node){
@@ -138,9 +138,8 @@ AVLNode * AVLTree::insert(int item, AVLNode * node){
     else{
         node->right = insert(item, node->right);
     }
-    AVLNode * balanced = balance(node);
-    restore_number_of_smaller_elements(balanced);
-    return balanced;
+    
+    return restore_number_of_smaller_elements(balance(node));
 }
 
 AVLNode * AVLTree::remove(int item, AVLNode * node){
@@ -160,9 +159,9 @@ AVLNode * AVLTree::remove(int item, AVLNode * node){
         AVLNode * min = find_min(right_child);
         min->right = remove_min(right_child);
         min->left = left_child;
-        return balance(min);
+        return restore_number_of_smaller_elements(balance(min));
     }
-    return balance(node);
+    return restore_number_of_smaller_elements(balance(node));
 }
 
 void AVLTree::traverse(void(*operation)(AVLNode * node), AVLNode * node){
@@ -181,8 +180,9 @@ size_t AVLTree::get_number_of_smaller_elements(AVLNode * node){
     return node != nullptr ? node->num_of_smaller_elements : 0;
 }
 
-void AVLTree::restore_number_of_smaller_elements(AVLNode * node){
+AVLNode * AVLTree::restore_number_of_smaller_elements(AVLNode * node){
     node->num_of_smaller_elements = get_number_of_smaller_elements(node->left);
     if(node->left != nullptr) node->num_of_smaller_elements += 1;
+    return node;
 }
 #pragma endregion
