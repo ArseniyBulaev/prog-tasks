@@ -37,7 +37,7 @@ bool AVLTree::member(int item){
 }
 #pragma endregion task
 
-#pragma endregion
+#pragma endregion public
 
 #pragma region private
 
@@ -200,6 +200,6 @@ bool AVLTree::member(int item, AVLNode * node){
     }
 }
 
-#pragma endregion
+#pragma endregion task
 
-#pragma endregion
+#pragma endregion private
