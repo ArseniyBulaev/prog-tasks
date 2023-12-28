@@ -20,6 +20,8 @@ public:
     AVLTree(const std::vector<int> & items);
     AVLTree(const AVLTree & tree);
     ~AVLTree();
+    // Task specific operations
+    bool member(int item);
 private:
     AVLNode * head = nullptr;
     static size_t get_height(AVLNode * node);
@@ -38,4 +40,5 @@ private:
     // Task specific operations
     static AVLNode * restore_number_of_smaller_elements(AVLNode * node);
     static size_t get_number_of_smaller_elements(AVLNode * node);
+    bool member(int item, AVLNode * node);
 };

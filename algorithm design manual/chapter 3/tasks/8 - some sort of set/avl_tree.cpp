@@ -31,6 +31,12 @@ AVLTree::~AVLTree(){
   delete_tree(head);
 }
 
+#pragma region task
+bool AVLTree::member(int item){
+    return member(item, head);
+}
+#pragma endregion task
+
 #pragma endregion
 
 #pragma region private
@@ -171,9 +177,6 @@ void AVLTree::traverse(void(*operation)(AVLNode * node), AVLNode * node){
     traverse(operation, node->right);
 }
 
-#pragma endregion
-
-
 #pragma region task
 
 size_t AVLTree::get_number_of_smaller_elements(AVLNode * node){
@@ -185,4 +188,18 @@ AVLNode * AVLTree::restore_number_of_smaller_elements(AVLNode * node){
     if(node->left != nullptr) node->num_of_smaller_elements += 1;
     return node;
 }
+
+bool AVLTree::member(int item, AVLNode * node){
+    if(node == nullptr) return false;
+    if(node->item == item) return true;
+    if(item < node->item){
+        return member(item, node->left);
+    }
+    else{
+        return member(item, node->right);
+    }
+}
+
+#pragma endregion
+
 #pragma endregion
