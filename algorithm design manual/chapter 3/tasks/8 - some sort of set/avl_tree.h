@@ -22,6 +22,7 @@ public:
     ~AVLTree();
     // Task specific operations
     bool member(int item);
+    void remove_kth(size_t k);
 private:
     AVLNode * head = nullptr;
     static size_t get_height(AVLNode * node);
@@ -41,4 +42,5 @@ private:
     static AVLNode * restore_number_of_smaller_elements(AVLNode * node);
     static size_t get_number_of_smaller_elements(AVLNode * node);
     bool member(int item, AVLNode * node);
+    AVLNode * remove_kth(size_t k, AVLNode * node);
 };

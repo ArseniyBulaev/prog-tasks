@@ -35,6 +35,9 @@ AVLTree::~AVLTree(){
 bool AVLTree::member(int item){
     return member(item, head);
 }
+void AVLTree::remove_kth(size_t k){
+    head = remove_kth(k, head);
+}
 #pragma endregion task
 
 #pragma endregion public
@@ -198,6 +201,22 @@ bool AVLTree::member(int item, AVLNode * node){
     else{
         return member(item, node->right);
     }
+}
+
+AVLNode * AVLTree::remove_kth(size_t k, AVLNode * node){
+    if(node == nullptr) return node;
+    // Порядковый номер данного элемента
+    size_t index_number = 1 + node->num_of_smaller_elements;
+    if(index_number > k){
+        node->left = remove_kth(k, node->left);
+    }
+    else if(index_number < k){
+        node->right = remove_kth(k - index_number, node->right);
+    }
+    else{
+        return remove(node->item, node);
+    }
+    return restore_number_of_smaller_elements(node);
 }
 
 #pragma endregion task

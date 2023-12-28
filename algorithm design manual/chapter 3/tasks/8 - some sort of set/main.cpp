@@ -18,7 +18,19 @@ void member_test(const vector<int> & input){
     }
 }
 
+void remove_kth_test(const vector<int> & input){
+    for(size_t i = 0; i < input.size(); ++i){
+        AVLTree tree(input);
+        size_t index_number = i + 1;
+        cout << "remove " << index_number << "th two times" << endl;
+        tree.remove_kth(index_number);
+        tree.remove_kth(index_number);
+    }
+}
+
 int main(){
-    member_test({1,2,3,4,5});
+    vector<int> test = {10,20,30,40,50};
+    //member_test(test);
+    remove_kth_test(test);
     return 0;
 }
