@@ -31,7 +31,7 @@ AVLTree::~AVLTree(){
   delete_tree(head);
 }
 
-#pragma endregion
+#pragma endregion public
 
 #pragma region private
 
@@ -170,4 +170,4 @@ void AVLTree::traverse(void(*operation)(AVLNode * node), AVLNode * node){
     traverse(operation, node->right);
 }
 
-#pragma endregion
+#pragma endregion private
