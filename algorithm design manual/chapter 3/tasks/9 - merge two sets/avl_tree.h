@@ -24,6 +24,7 @@ public:
     ~AVLTree();
     // Task specific
     static AVLTree merge(const AVLTree & t1, const AVLTree & t2);
+    AVLTree() = default;
 private:
     AVLNode * head = nullptr;
     static size_t get_height(AVLNode * node);
