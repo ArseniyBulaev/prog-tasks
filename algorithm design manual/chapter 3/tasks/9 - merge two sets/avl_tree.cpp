@@ -190,6 +190,10 @@ AVLNode * AVLTree::restore_branch_size(AVLNode * node){
     return node;
 }
 
+bool AVLTree::is_empty(AVLNode * node){
+    return node == nullptr;
+}
+
 AVLTree AVLTree::merge(const AVLTree & t1, const AVLTree & t2) {
     
 }
