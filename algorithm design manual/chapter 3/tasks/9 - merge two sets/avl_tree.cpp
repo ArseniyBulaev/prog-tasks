@@ -206,6 +206,10 @@ AVLNode * AVLTree::merge(AVLNode * t1, AVLNode * t2) {
     
 }
 
+ AVLNode * AVLTree::find_max(AVLNode * node){
+    return (node->right != nullptr ? find_max(node->right) : node);
+ }
+
 #pragma endregion task specific
 
 #pragma endregion private

@@ -44,5 +44,6 @@ private:
     size_t get_branch_size(AVLNode * node);
     AVLNode * restore_branch_size(AVLNode * node);
     bool is_empty(AVLNode * node);
+    static AVLNode * find_max(AVLNode * node);
     static AVLNode * merge(AVLNode * t1, AVLNode * t2);
 };
