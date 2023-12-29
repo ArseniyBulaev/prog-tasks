@@ -22,6 +22,8 @@ public:
     AVLTree(const std::vector<int> & items);
     AVLTree(const AVLTree & tree);
     ~AVLTree();
+    // Task specific
+    static AVLTree merge(const AVLTree & t1, const AVLTree & t2);
 private:
     AVLNode * head = nullptr;
     static size_t get_height(AVLNode * node);
@@ -41,5 +43,5 @@ private:
     size_t get_branch_size(AVLNode * node);
     AVLNode * restore_branch_size(AVLNode * node);
     bool is_empty(AVLNode * node);
-    static AVLTree merge(const AVLTree & t1, const AVLTree & t2);
+    static AVLNode * merge(AVLNode * t1, AVLNode * t2);
 };

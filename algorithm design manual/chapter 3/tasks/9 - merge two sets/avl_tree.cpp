@@ -31,6 +31,14 @@ AVLTree::~AVLTree(){
   delete_tree(head);
 }
 
+#pragma region  task specific
+
+AVLTree AVLTree::merge(const AVLTree & t1, const AVLTree & t2) {
+    
+}
+
+#pragma endregion task specific
+
 #pragma endregion public
 
 #pragma region private
@@ -194,7 +202,7 @@ bool AVLTree::is_empty(AVLNode * node){
     return node == nullptr;
 }
 
-AVLTree AVLTree::merge(const AVLTree & t1, const AVLTree & t2) {
+AVLNode * AVLTree::merge(AVLNode * t1, AVLNode * t2) {
     
 }
 
