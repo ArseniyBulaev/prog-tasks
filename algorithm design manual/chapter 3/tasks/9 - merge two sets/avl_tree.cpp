@@ -189,6 +189,11 @@ AVLNode * AVLTree::restore_branch_size(AVLNode * node){
     node->right_branch_size = get_branch_size(node->right);
     return node;
 }
+
+AVLTree AVLTree::merge(const AVLTree & t1, const AVLTree & t2) {
+    
+}
+
 #pragma endregion task specific
 
 #pragma endregion private

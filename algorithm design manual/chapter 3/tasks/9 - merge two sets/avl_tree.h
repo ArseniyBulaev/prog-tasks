@@ -40,4 +40,5 @@ private:
     // Task specific
     size_t get_branch_size(AVLNode * node);
     AVLNode * restore_branch_size(AVLNode * node);
+    static AVLTree merge(const AVLTree & t1, const AVLTree & t2);
 };
