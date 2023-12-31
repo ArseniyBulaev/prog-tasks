@@ -214,6 +214,9 @@ AVLNode * AVLTree::merge(AVLNode * t1, AVLNode * t2) {
     if(t1 == nullptr) return t2;
     if(t2 == nullptr) return t1;
     // Решение из какого дерева будем брать корень
+    auto choose_head = [](AVLNode * t1, AVLNode * t2){
+        return get_branch_size(t1) > get_branch_size(t2) ? t1 : t2;
+    };
     AVLNode * new_head = choose_head(t1, t2);
     // Новый корень
     AVLNode * t; 

@@ -41,8 +41,8 @@ private:
     AVLNode * remove(int item, AVLNode * node);
     void traverse(void(*operation)(AVLNode * node), AVLNode * node);
     // Task specific
-    size_t get_branch_size(AVLNode * node);
-    AVLNode * restore_branch_size(AVLNode * node);
+    static size_t  get_branch_size(AVLNode * node);
+    static AVLNode * restore_branch_size(AVLNode * node);
     bool is_empty(AVLNode * node);
     static AVLNode * find_max(AVLNode * node);
     static AVLNode * merge(AVLNode * t1, AVLNode * t2);
