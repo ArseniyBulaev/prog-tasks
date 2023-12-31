@@ -8,10 +8,18 @@ struct AVLNode{
     size_t height = 0;
     AVLNode * left = nullptr;
     AVLNode * right = nullptr;
-    AVLNode(int item):item(item), height(1) {}
+    AVLNode(int item, size_t height = 1, size_t left_b_sz = 0, size_t right_b_sz = 0):
+    item(item),
+    height(height),
+    left_branch_size(left_b_sz),
+    right_branch_size(right_b_sz)
+    {}
+    AVLNode(const AVLNode & node);
+    AVLNode() = default;
     // Task specific
     size_t left_branch_size = 0;
     size_t right_branch_size = 0;
+    static AVLNode * create_from(const AVLNode * node);
 };
 
 class AVLTree{
@@ -34,7 +42,6 @@ private:
     static AVLNode * right_rotation(AVLNode * node);
     static AVLNode * balance(AVLNode * node);
     static void delete_tree(AVLNode * node);
-    static AVLNode * create_from(AVLNode * node);
     static AVLNode * find_min(AVLNode * node);
     static AVLNode * remove_min(AVLNode * node);
     AVLNode * insert(int item, AVLNode * node);
@@ -45,5 +52,5 @@ private:
     static AVLNode * restore_branch_size(AVLNode * node);
     bool is_empty(AVLNode * node);
     static AVLNode * find_max(AVLNode * node);
-    static AVLNode merge(AVLNode * t1, AVLNode * t2);
+    static AVLNode * merge(AVLNode * t1, AVLNode * t2);
 };

@@ -4,6 +4,23 @@
 #include "avl_tree.h"
 
 #pragma region node
+AVLNode::AVLNode(const AVLNode & node){
+    *this = *create_from(&node);
+}
+
+AVLNode * AVLNode::create_from(const AVLNode * original){
+    AVLNode * copy = nullptr;
+    if(original != nullptr){
+        // Копируем содержимое
+        copy = new AVLNode(original->item, original->height, original->left_branch_size, original->right_branch_size);
+        // Копируем левую ветку
+        copy->left = create_from(original->left);
+        // Копируем правую ветку
+        copy->right = create_from(original->right);
+    } 
+    return copy;
+}
+
 #pragma endregion node
 
 #pragma region tree
@@ -28,8 +45,9 @@ AVLTree::AVLTree(const std::vector<int> & items){
 }
 
 AVLTree::AVLTree(const AVLTree & tree){
-    head = create_from(tree.head);
+    head = AVLNode::create_from(tree.head);
 }
+
 
 AVLTree::~AVLTree(){
   std::cout << "Destructor (sounds of death...):" << std::endl;
@@ -46,7 +64,7 @@ AVLTree AVLTree::merge(AVLTree t1, AVLTree t2) {
         throw std::invalid_argument("all elements in t1 must be less than all elements in t2");
     }
     AVLTree merged;
-    merge(t1.head, t2.head);
+    merged.head = merge(t1.head, t2.head);
     return merged;
 }
 
@@ -124,20 +142,7 @@ void AVLTree::delete_tree(AVLNode * node){
     delete node;
 }
 
-AVLNode * AVLTree::create_from(AVLNode * original){
-    AVLNode * copy = nullptr;
-    if(original != nullptr){
-        // Копируем содержимое
-        copy = new AVLNode(original->item);
-        // Копируем высоту
-        copy->height = original->height;
-        // Копируем левую ветку
-        copy->left = create_from(original->left);
-        // Копируем правую ветку
-        copy->right = create_from(original->right);
-    } 
-    return copy;
-}
+
 
 AVLNode * AVLTree::find_min(AVLNode * node){
     return (node->left != nullptr ? find_min(node->left) : node);
@@ -216,27 +221,27 @@ bool AVLTree::is_empty(AVLNode * node){
     return node == nullptr;
 }
 
-// AVLNode AVLTree::merge(AVLNode * t1, AVLNode * t2) {
-//     if(t1 == nullptr) return t2;
-//     if(t2 == nullptr) return t1;
-//     // Решение из какого дерева будем брать корень
-//     auto choose_head = [](AVLNode * t1, AVLNode * t2){
-//         return get_branch_size(t1) > get_branch_size(t2) ? t1 : t2;
-//     };
-//     AVLNode * new_head = choose_head(t1, t2);
-//     // Новый корень
-//     AVLNode * t; 
-//     if(new_head == t1){
-//         AVLNode * t = merge(t1->right, t2);
-//         t1->right = t;
-//         return restore_branch_size(balance(t1));
-//     }
-//     else{
-//         AVLNode *t = merge(t1, t2->left);
-//         t2->left = t;
-//         return restore_branch_size(balance(t2));
-//     }
-// }
+AVLNode * AVLTree::merge(AVLNode * t1, AVLNode * t2) {
+    if(t1 == nullptr) return t2;
+    if(t2 == nullptr) return t1;
+    // Решение из какого дерева будем брать корень
+    auto choose_head = [](AVLNode * t1, AVLNode * t2){
+        return get_branch_size(t1) > get_branch_size(t2) ? t1 : t2;
+    };
+    AVLNode * new_head = choose_head(t1, t2);
+    // Новый корень
+    AVLNode * t = nullptr; 
+    if(new_head == t1){
+        t = merge(t1->right, t2);
+        t1->right = t;
+        return restore_branch_size(balance(t1));
+    }
+    else{
+        AVLNode *t = merge(t1, t2->left);
+        t2->left = t;
+        return restore_branch_size(balance(t2));
+    }
+}
 
  AVLNode * AVLTree::find_max(AVLNode * node){
     return (node->right != nullptr ? find_max(node->right) : node);
