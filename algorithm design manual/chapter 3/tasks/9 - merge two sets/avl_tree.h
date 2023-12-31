@@ -23,7 +23,7 @@ public:
     AVLTree(const AVLTree & tree);
     ~AVLTree();
     // Task specific
-    static AVLTree merge(const AVLTree & t1, const AVLTree & t2);
+    static AVLTree merge(AVLTree t1, AVLTree t2);
     AVLTree() = default;
 private:
     AVLNode * head = nullptr;

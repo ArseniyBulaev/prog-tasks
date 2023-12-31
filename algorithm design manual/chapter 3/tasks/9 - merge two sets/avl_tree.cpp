@@ -33,8 +33,16 @@ AVLTree::~AVLTree(){
 
 #pragma region  task specific
 
-AVLTree AVLTree::merge(const AVLTree & t1, const AVLTree & t2) {
-    
+AVLTree AVLTree::merge(AVLTree t1, AVLTree t2) {
+    // каждый элемент из t1 меньше каждого элемента из t2
+    AVLNode * t1_max = find_max(t1.head);
+    AVLNode * t2_min = find_min(t2.head);
+    if(t1_max > t2_min) {
+        throw std::invalid_argument("all elements in t1 must be less than all elements in t2");
+    }
+    AVLTree merged;
+    merged.head = merge(t1.head, t2.head);
+    return merged;
 }
 
 #pragma endregion task specific
@@ -203,7 +211,22 @@ bool AVLTree::is_empty(AVLNode * node){
 }
 
 AVLNode * AVLTree::merge(AVLNode * t1, AVLNode * t2) {
-    
+    if(t1 == nullptr) return t2;
+    if(t2 == nullptr) return t1;
+    // Решение из какого дерева будем брать корень
+    AVLNode * new_head = choose_head(t1, t2);
+    // Новый корень
+    AVLNode * t; 
+    if(new_head == t1){
+        AVLNode * t = merge(t1->right, t2);
+        t1->right = t;
+        return t1;
+    }
+    else{
+        AVLNode *t = merge(t1, t2->left);
+        t2->left = t;
+        return t2;
+    }
 }
 
  AVLNode * AVLTree::find_max(AVLNode * node){
