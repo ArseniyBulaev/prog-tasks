@@ -223,12 +223,12 @@ AVLNode * AVLTree::merge(AVLNode * t1, AVLNode * t2) {
     if(new_head == t1){
         AVLNode * t = merge(t1->right, t2);
         t1->right = t;
-        return t1;
+        return restore_branch_size(balance(t1));
     }
     else{
         AVLNode *t = merge(t1, t2->left);
         t2->left = t;
-        return t2;
+        return restore_branch_size(balance(t2));
     }
 }
 
