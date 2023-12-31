@@ -3,6 +3,11 @@
 
 #include "avl_tree.h"
 
+#pragma region node
+#pragma endregion node
+
+#pragma region tree
+
 #pragma region public
 void AVLTree::insert(int item){
     head = insert(item, head);
@@ -50,6 +55,7 @@ AVLTree AVLTree::merge(AVLTree t1, AVLTree t2) {
 #pragma endregion public
 
 #pragma region private
+
 
 size_t AVLTree::get_height(AVLNode * node){
     return node != nullptr ? node->height : 0;
@@ -239,3 +245,5 @@ bool AVLTree::is_empty(AVLNode * node){
 #pragma endregion task specific
 
 #pragma endregion private
+
+#pragma endregion tree
