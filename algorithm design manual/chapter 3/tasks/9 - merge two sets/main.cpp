@@ -3,12 +3,13 @@
 
 using std::vector;
 
+void merge_test(){
+    AVLTree t1({1,2,3});
+    AVLTree t2({4,5,6});
+    AVLTree::merge(t1, t2);
+}
+
 int main(){
-    vector<int> input = {1,2,3,4,5};
-    for(int item : input){
-        AVLTree tree(input);
-        tree.remove(item);
-    }
-    
+    merge_test();
     return 0;
 }
