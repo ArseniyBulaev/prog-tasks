@@ -9,6 +9,7 @@ struct Container{
     Container * left = nullptr;
     Container * right = nullptr;
     Container():available_space(1), height(1) {}
+    bool push(double weight);
 };
 
 class Tree{

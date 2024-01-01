@@ -3,8 +3,20 @@
 
 #include "tree.h"
 
-#pragma region public
+#pragma region container
 
+bool Container::push(double weight){
+    if(available_space - weight >= 0){
+        available_space -= weight;
+        return true;
+    }
+    return false;
+}
+
+#pragma endregion container
+
+
+#pragma region public
 
 Tree::~Tree(){
   std::cout << "Destructor (sounds of death...):" << std::endl;
