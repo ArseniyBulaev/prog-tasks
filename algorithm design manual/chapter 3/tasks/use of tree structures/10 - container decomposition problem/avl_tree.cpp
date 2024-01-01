@@ -146,5 +146,28 @@ AVLNode * AVLTree::remove(double weight, AVLNode * node){
     return balance(node);
 }
 
+#pragma region task specific
+
+void AVLTree::insert_object(double weight){
+    insert_object(weight, false, head);
+}
+
+AVLNode * AVLTree::insert_object(double weight, bool is_place_found, AVLNode * node){
+    // Не закончено
+    // Если место не найдено
+        // Если текущий узел пустой
+            // Создать новый узел и положить в него предмет
+            // Вернуть этот узел
+        // Иначе
+            // Если weight > node.available_weight
+                // new_node = insert_object(weight, is_place_found, node.right)
+            // Иначе
+                // is_place_found = true
+                // new_node = insert_object(weight, is_place_found, node.left)
+    // Если место найдено
+}
+
+#pragma endregion task specific
+
 
 #pragma endregion private

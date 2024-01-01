@@ -28,4 +28,9 @@ private:
     static AVLNode * remove_min(AVLNode * node);
     AVLNode * insert(double weight, AVLNode * node);
     AVLNode * remove(double weight, AVLNode * node);
+    // task specific
+public:
+    void insert_object(double weight);
+private:
+    AVLNode * insert_object(double weight, bool is_place_found,  AVLNode * node);
 };
