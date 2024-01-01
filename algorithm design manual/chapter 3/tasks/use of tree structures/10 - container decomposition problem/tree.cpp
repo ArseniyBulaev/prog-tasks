@@ -136,8 +136,21 @@ void Tree::insert(double weight){
 
 }
 
-Container * Tree::insert(double weight, Container * node){
+Container * Tree::insert(double weight, Container * container){
     return new Container();
+}
+
+Container * Tree::find_place(double weight, Container * container){
+    if (container == nullptr) return container;
+    Container * best_place = nullptr;
+    if (weight < container->available_space){
+      best_place = find_place(weight, container->left);
+    }
+    else if (weight > container->available_space){
+      best_place = find_place(weight, container->right);
+    }
+    if(best_place == nullptr) best_place = container;
+    return best_place;
 }
 
 #pragma endregion task specific

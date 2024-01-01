@@ -31,5 +31,6 @@ private:
 public:
     void insert(double weight);
 private:
-    Container * insert(double weight, Container * node);
+    Container * insert(double weight, Container * container);
+    Container * find_place(double weight, Container * container)
 };
