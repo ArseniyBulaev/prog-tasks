@@ -53,5 +53,6 @@ private:
     bool is_empty(AVLNode * node);
     static AVLNode * find_max(AVLNode * node);
     static AVLNode * merge(AVLNode * t1, AVLNode * t2);
+    static void remove_links(AVLTree & tree);
     static void remove_links(AVLNode * node);
 };

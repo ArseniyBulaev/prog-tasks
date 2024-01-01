@@ -65,6 +65,9 @@ AVLTree AVLTree::merge(AVLTree t1, AVLTree t2) {
     }
     AVLTree merged;
     merged.head = merge(t1.head, t2.head);
+    // Удалить старые связи, чтобы деструктор не вызывался два раза
+    t1.head = nullptr;
+    t2.head = nullptr;
     return merged;
 }
 
@@ -246,6 +249,11 @@ AVLNode * AVLTree::merge(AVLNode * t1, AVLNode * t2) {
  AVLNode * AVLTree::find_max(AVLNode * node){
     return (node->right != nullptr ? find_max(node->right) : node);
  }
+
+void AVLTree::remove_links(AVLTree & tree){
+    remove_links(tree.head);
+    tree.head = nullptr;
+}
 
  void AVLTree::remove_links(AVLNode * node){
     if(node == nullptr) return;
