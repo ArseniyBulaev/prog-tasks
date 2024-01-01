@@ -29,7 +29,7 @@ private:
     Container * remove(double weight, Container * node);
     // task specific
 public:
-    void insert_object(double weight);
+    void insert(double weight);
 private:
-    Container * insert_object(double weight, Container * node);
+    Container * insert(double weight, Container * node);
 };

@@ -132,27 +132,12 @@ Container * Tree::remove(double weight, Container * node){
 
 #pragma region task specific
 
-void Tree::insert_object(double weight){
-    insert_object(weight, head);
+void Tree::insert(double weight){
+
 }
 
-Container * Tree::insert_object(double weight, Container * node){
-    // Не закончено
-    // Если место не найдено
-        // Если текущий узел пустой
-            // Создать новый узел и положить в него предмет
-            // Вернуть этот узел
-        // Иначе
-            // Если weight > node.available_weight
-                // new_node = insert_object(weight, is_place_found, node.right)
-                // Если new_node.available_weight < node.available_weight
-                    // return new_node
-                // Иначе
-                    // node.right = new_node
-            // Иначе
-                // is_place_found = true
-                // new_node = insert_object(weight, is_place_found, node.left)
-    // Если место найдено
+Container * Tree::insert(double weight, Container * node){
+    return new Container();
 }
 
 #pragma endregion task specific
