@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "avl_tree.h"
+#include "tree.h"
 
 #pragma region public
 
