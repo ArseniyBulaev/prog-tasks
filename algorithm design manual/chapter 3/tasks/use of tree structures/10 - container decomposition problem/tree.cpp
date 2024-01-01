@@ -141,8 +141,8 @@ Container * Tree::insert(double weight, Container * container){
 }
 
 Container * Tree::find_place(double weight, Container * container){
-    if (container == nullptr) return container;
     Container * best_place = nullptr;
+    if (container == nullptr) return best_place;
     if (weight < container->available_space){
       best_place = find_place(weight, container->left);
     }
