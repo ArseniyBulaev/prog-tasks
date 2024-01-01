@@ -9,6 +9,7 @@ struct Container{
     Container * left = nullptr;
     Container * right = nullptr;
     Container():available_space(1), height(1) {}
+    Container(double weight);
     bool push(double weight);
 };
 
@@ -26,11 +27,12 @@ private:
     static void delete_tree(Container * node);
     static Container * find_min(Container * node);
     static Container * remove_min(Container * node);
+    Container * standart_insert(double item, Container * node);
     Container * remove(double weight, Container * node);
     // task specific
 public:
     void insert(double weight);
 private:
     Container * insert(double weight, Container * container);
-    Container * find_place(double weight, Container * container)
+    Container * find_place(double weight, Container * container);
 };

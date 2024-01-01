@@ -13,6 +13,10 @@ bool Container::push(double weight){
     return false;
 }
 
+Container::Container(double weight): Container(){
+    push(weight);
+}
+
 #pragma endregion container
 
 
@@ -108,6 +112,21 @@ Container * Tree::remove_min(Container * node){
 }
 
 
+Container * Tree::standart_insert(double item, Container * node){
+    if(node == nullptr){
+        return new Container(item);
+    } 
+    if(node->available_space == item) return node;
+    if(item < node->available_space){
+        node->left = standart_insert(item, node->left);
+    }
+    else{
+        node->right = standart_insert(item, node->right);
+    }
+    return balance(node);
+}
+
+
 Container * Tree::remove(double weight, Container * node){
     if(node == nullptr) return node;
     if(weight < node->available_space){
@@ -133,11 +152,15 @@ Container * Tree::remove(double weight, Container * node){
 #pragma region task specific
 
 void Tree::insert(double weight){
-
+    insert(weight, head);
 }
 
 Container * Tree::insert(double weight, Container * container){
-    return new Container();
+    Container * best_place = find_place(weight, container);
+    Container best_place_copy = *best_place;
+    remove(best_place->available_space, best_place);
+    best_place_copy.push(weight);
+    standart_insert(best_place_copy.available_space, head);
 }
 
 Container * Tree::find_place(double weight, Container * container){
@@ -154,6 +177,4 @@ Container * Tree::find_place(double weight, Container * container){
 }
 
 #pragma endregion task specific
-
-
 #pragma endregion private
