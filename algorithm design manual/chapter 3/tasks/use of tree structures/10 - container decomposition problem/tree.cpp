@@ -152,15 +152,24 @@ Container * Tree::remove(double weight, Container * node){
 #pragma region task specific
 
 void Tree::insert(double weight){
-    insert(weight, head);
+    head = insert(weight, head);
 }
 
 Container * Tree::insert(double weight, Container * container){
     Container * best_place = find_place(weight, container);
-    Container best_place_copy = *best_place;
-    remove(best_place->available_space, best_place);
-    best_place_copy.push(weight);
-    standart_insert(best_place_copy.available_space, head);
+    // Если best_place == nullptr, значит в дереве ещё нет вершин
+    // Просто создаём её и возвращаем
+    if (best_place == nullptr) return new Container(weight);
+    // Здесь мы нашли подходящий контейнер
+    else{
+        double best_place_available_space = best_place->available_space;
+        // Удаляем найденный контейнер,
+        // так как после того как мы в него что-то положим он может нарушить инвариант дерева
+        remove(best_place_available_space, best_place);
+        double remaining_space =  best_place_available_space - weight;
+        // Вставляем в дерево новый контейнер ёмкостью равной оставшемуся месту
+        return standart_insert(remaining_space, head);
+    }
 }
 
 Container * Tree::find_place(double weight, Container * container){
