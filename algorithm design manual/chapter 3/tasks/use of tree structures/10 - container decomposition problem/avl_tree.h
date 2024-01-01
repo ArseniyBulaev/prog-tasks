@@ -4,11 +4,11 @@
 #include <vector>
 
 struct Container{
-    double available_space = 1;
+    double available_space = 0;
     size_t height = 0;
     Container * left = nullptr;
     Container * right = nullptr;
-    Container(double weight):available_space(weight), height(1) {}
+    Container():available_space(1), height(1) {}
 };
 
 class Tree{
@@ -23,10 +23,8 @@ private:
     static Container * right_rotation(Container * node);
     static Container * balance(Container * node);
     static void delete_tree(Container * node);
-    static Container * create_from(Container * node);
     static Container * find_min(Container * node);
     static Container * remove_min(Container * node);
-    Container * insert(double weight, Container * node);
     Container * remove(double weight, Container * node);
     // task specific
 public:

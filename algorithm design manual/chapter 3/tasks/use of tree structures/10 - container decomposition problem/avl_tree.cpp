@@ -5,9 +5,6 @@
 
 #pragma region public
 
-Tree::Tree(const Tree & tree){
-    head = create_from(tree.head);
-}
 
 Tree::~Tree(){
   std::cout << "Destructor (sounds of death...):" << std::endl;
@@ -85,20 +82,6 @@ void Tree::delete_tree(Container * node){
     delete node;
 }
 
-Container * Tree::create_from(Container * original){
-    Container * copy = nullptr;
-    if(original != nullptr){
-        // Копируем содержимое
-        copy = new Container(original->available_space);
-        // Копируем высоту
-        copy->height = original->height;
-        // Копируем левую ветку
-        copy->left = create_from(original->left);
-        // Копируем правую ветку
-        copy->right = create_from(original->right);
-    } 
-    return copy;
-}
 
 Container * Tree::find_min(Container * node){
     return (node->left != nullptr ? find_min(node->left) : node);
@@ -112,17 +95,6 @@ Container * Tree::remove_min(Container * node){
     return balance(node);
 }
 
-Container * Tree::insert(double weight, Container * node){
-    if(node == nullptr) return new Container(weight);
-    if(node->available_space == weight) return node;
-    if(weight < node->available_space){
-        node->left = insert(weight, node->left);
-    }
-    else{
-        node->right = insert(weight, node->right);
-    }
-    return balance(node);
-}
 
 Container * Tree::remove(double weight, Container * node){
     if(node == nullptr) return node;
