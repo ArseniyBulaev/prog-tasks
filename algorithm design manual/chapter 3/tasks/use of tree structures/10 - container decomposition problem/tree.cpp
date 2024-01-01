@@ -114,6 +114,7 @@ Container * Tree::remove_min(Container * node){
 
 Container * Tree::standart_insert(double item, Container * node){
     if(node == nullptr){
+        ++size;
         return new Container(item);
     } 
     if(node->available_space == item) return node;
@@ -140,6 +141,7 @@ Container * Tree::remove(double weight, Container * node){
         Container * left_child = node->left;
         Container * right_child = node->right;
         delete node;
+        --size;
         if(right_child == nullptr) return left_child;
         Container * min = find_min(right_child);
         min->right = remove_min(right_child);

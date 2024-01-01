@@ -15,6 +15,7 @@ struct Container{
 
 class Tree{
 public:
+    size_t size = 0;
     ~Tree();
 private:
     Container * head = nullptr;
