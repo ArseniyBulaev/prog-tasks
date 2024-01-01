@@ -247,6 +247,14 @@ AVLNode * AVLTree::merge(AVLNode * t1, AVLNode * t2) {
     return (node->right != nullptr ? find_max(node->right) : node);
  }
 
+ void AVLTree::remove_links(AVLNode * node){
+    if(node == nullptr) return;
+    remove_links(node->right);
+    remove_links(node->left);
+    node->left = nullptr;
+    node->right = nullptr;
+ }
+
 #pragma endregion task specific
 
 #pragma endregion private
