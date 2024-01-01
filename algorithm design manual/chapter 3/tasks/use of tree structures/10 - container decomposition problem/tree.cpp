@@ -14,7 +14,7 @@ bool Container::push(double weight){
 }
 
 Container::Container(double weight): Container(){
-    push(weight);
+    available_space = weight;
 }
 
 #pragma endregion container
@@ -157,9 +157,10 @@ void Tree::insert(double weight){
 
 Container * Tree::insert(double weight, Container * container){
     Container * best_place = find_place(weight, container);
-    // Если best_place == nullptr, значит в дереве ещё нет вершин
-    // Просто создаём её и возвращаем
-    if (best_place == nullptr) return new Container(weight);
+    // Если выполняется, то подходящего контейнера нет, и его нужно создать
+    if (best_place == nullptr || best_place->available_space < weight){
+        return standart_insert(1 - weight, head);
+    } 
     // Здесь мы нашли подходящий контейнер
     else{
         double best_place_available_space = best_place->available_space;
