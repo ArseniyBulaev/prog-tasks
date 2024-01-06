@@ -1,6 +1,6 @@
-#include "min_friendly_array.h"
+#include "smallest_friendly_array.h"
 
-void MinFriendlyArray::expand_smallest_elements_in_subseq(int new_element){
+void SmallestFriendlyArray::expand_smallest_elements_in_subseq(int new_element){
     // Индекс нового элемента равен размеру elements до вставки
     size_t indx_of_new_element = elements.size();
     for(std::vector<int> & subseq_for_some_element : smallest_elements_in_subseq){
@@ -14,12 +14,12 @@ void MinFriendlyArray::expand_smallest_elements_in_subseq(int new_element){
     elements.push_back(new_element);
 }
 
-void MinFriendlyArray::insert(int element){
+void SmallestFriendlyArray::insert(int element){
     // Учитываем новый элемент при определении минимума в подпоследовательности 
     expand_smallest_elements_in_subseq(element);
 }
 
-MinFriendlyArray::MinFriendlyArray(const std::vector<int> & vec){
+SmallestFriendlyArray::SmallestFriendlyArray(const std::vector<int> & vec){
     for(int element : vec){
         insert(element);
     }
