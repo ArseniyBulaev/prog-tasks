@@ -5,8 +5,8 @@
 class MinFriendlyArray{
 private:
     std::vector<int> elements;
-    std::vector<std::vector<int>> min_elements_in_subseq;
-    void expand_min_elements_in_subseq(int new_element);
+    std::vector<std::vector<int>> smallest_elements_in_subseq;
+    void expand_smallest_elements_in_subseq(int new_element);
     MinFriendlyArray(const std::vector<int> & vec);
 public:
     void insert(int element);
