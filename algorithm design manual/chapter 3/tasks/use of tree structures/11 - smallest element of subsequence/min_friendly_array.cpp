@@ -14,3 +14,9 @@ void MinFriendlyArray::insert(int element){
     // Добавляем новый элемент в список элементов
     elements.push_back(element);
 }
+
+MinFriendlyArray::MinFriendlyArray(const std::vector<int> & vec){
+    for(int element : vec){
+        insert(element);
+    }
+}
