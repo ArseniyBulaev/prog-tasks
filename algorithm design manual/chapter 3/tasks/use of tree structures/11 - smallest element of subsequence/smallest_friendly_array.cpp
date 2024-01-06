@@ -14,13 +14,18 @@ void SmallestFriendlyArray::expand_smallest_elements_in_subseq(int new_element){
     elements.push_back(new_element);
 }
 
-void SmallestFriendlyArray::insert(int element){
-    // Учитываем новый элемент при определении минимума в подпоследовательности 
-    expand_smallest_elements_in_subseq(element);
-}
 
 SmallestFriendlyArray::SmallestFriendlyArray(const std::vector<int> & vec){
     for(int element : vec){
         insert(element);
     }
+}
+
+void SmallestFriendlyArray::insert(int element){
+    // Учитываем новый элемент при определении минимума в подпоследовательности 
+    expand_smallest_elements_in_subseq(element);
+}
+
+int SmallestFriendlyArray::get_smallest_between(size_t i, size_t j){
+    return smallest_elements_in_subseq[i][j - i - 1];
 }

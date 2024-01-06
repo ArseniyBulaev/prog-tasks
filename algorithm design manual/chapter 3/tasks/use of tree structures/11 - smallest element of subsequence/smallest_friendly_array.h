@@ -10,5 +10,5 @@ private:
     SmallestFriendlyArray(const std::vector<int> & vec);
 public:
     void insert(int element);
-
+    int get_smallest_between(size_t i, size_t j);
 };
