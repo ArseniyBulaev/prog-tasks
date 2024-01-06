@@ -3,8 +3,8 @@
 void MinFriendlyArray::expand_min_elements_in_subseq(int new_element){
     for(std::vector<int> & subseq_for_some_element : min_elements_in_subseq){
         // Проверяем меньше ли новый элемент текущего минимума
-        int min = new_element < subseq_for_some_element.back() ? new_element : subseq_for_some_element.back();
-        subseq_for_some_element.push_back(min);
+        size_t indx_of_min = new_element < subseq_for_some_element.back() ? subseq_for_some_element.size() : subseq_for_some_element.back();
+        subseq_for_some_element.push_back(indx_of_min);
     } 
 }
 
