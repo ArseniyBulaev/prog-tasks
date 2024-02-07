@@ -3,6 +3,8 @@
 
 #include "some_tree.h"
 
+#pragma region private
+
 size_t SomeTree::get_height(Node * node){
     return node != nullptr ? node->height : 0;
 }
@@ -101,10 +103,35 @@ Node * SomeTree::insert(int value, Node * node){
     return balance(node); 
 }
 
+void SomeTree::add(size_t i, int y, Node * node){
+    if(node->key == i) node->value += y;
+    
+    if(node->key < i){
+        add(i, y, node->left);
+        node->sum_in_left_subtree += y;
+    }
+    else{
+        add(i, y, node->right);
+        node->sum_in_right_subtree += y;
+    }
+}
+
+#pragma endregion
+
+#pragma region public
+
 void SomeTree::insert(int value){
     head = insert(value, head);
+}
+
+void SomeTree::add(size_t i, int y){
+    if(i > size() - 1 ) throw std::out_of_range("i is greater than the array size");
+    add(i, y, head);
 }
 
 SomeTree::~SomeTree(){
     delete_tree(head);
 }
+
+#pragma endregion
+

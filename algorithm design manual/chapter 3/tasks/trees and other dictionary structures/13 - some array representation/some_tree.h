@@ -20,6 +20,7 @@ class SomeTree{
 public:
     size_t size() { return tree_size;};
     void insert(int value);
+    void add(size_t i, int y);
     ~SomeTree();
 private:
     Node * head = nullptr;
@@ -32,4 +33,5 @@ private:
     static Node * balance(Node * node);
     static void delete_tree(Node * node);
     Node * insert(int value, Node * node);
+    void add(size_t i, int y, Node * node);
 };

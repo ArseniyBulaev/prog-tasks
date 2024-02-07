@@ -43,5 +43,6 @@ int main(){
    for(int value : test){
         array_tree.insert(value);
    }
+   array_tree.add(0, 4);
    return 0;
 }
