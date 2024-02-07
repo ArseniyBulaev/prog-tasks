@@ -120,7 +120,7 @@ void SomeTree::add(size_t i, int y, Node * node){
 }
 
 Node * SomeTree::find(size_t i, Node * node){
-    if(node != nullptr) return nullptr;
+    if(node == nullptr) return nullptr;
     if (node->key == i) return node;
     if (i < node->key){
         return find(i, node->left);
