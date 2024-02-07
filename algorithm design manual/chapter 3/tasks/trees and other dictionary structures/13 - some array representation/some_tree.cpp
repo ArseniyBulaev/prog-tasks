@@ -104,9 +104,12 @@ Node * SomeTree::insert(int value, Node * node){
 }
 
 void SomeTree::add(size_t i, int y, Node * node){
-    if(node->key == i) node->value += y;
+    if(node->key == i){ 
+        node->value += y;
+        return;
+    }
     
-    if(node->key < i){
+    if(i < node->key){
         add(i, y, node->left);
         node->sum_in_left_subtree += y;
     }
