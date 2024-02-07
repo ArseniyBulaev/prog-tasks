@@ -89,7 +89,7 @@ void SomeTree::delete_tree(Node * node){
 Node * SomeTree::insert(int value, Node * node){
     if(node == nullptr){
         ++tree_size;
-        return new Node(tree_size, value);
+        return new Node(tree_size - 1, value);
     }
 
     if(tree_size + 1 < node->key){
