@@ -119,6 +119,17 @@ void SomeTree::add(size_t i, int y, Node * node){
     }
 }
 
+Node * SomeTree::find(size_t i, Node * node){
+    if(node != nullptr) return nullptr;
+    if (node->key == i) return node;
+    if (i < node->key){
+        return find(i, node->left);
+    }
+    else{
+        return find(i, node->right);
+    }
+}
+
 #pragma endregion
 
 #pragma region public
@@ -134,6 +145,10 @@ void SomeTree::add(size_t i, int y){
 
 SomeTree::~SomeTree(){
     delete_tree(head);
+}
+
+Node * SomeTree::find(size_t i){
+    return find(i, head);
 }
 
 #pragma endregion
