@@ -22,6 +22,7 @@ public:
     void insert(int value);
     Node * find(size_t i);
     void add(size_t i, int y);
+    int partial_sum(size_t i);
     ~SomeTree();
 private:
     Node * head = nullptr;
@@ -36,4 +37,5 @@ private:
     Node * insert(int value, Node * node);
     void add(size_t i, int y, Node * node);
     Node * find(size_t i, Node * node);
+    std::pair<Node *, Node *> find(size_t i, Node * node, Node * parent);
 };

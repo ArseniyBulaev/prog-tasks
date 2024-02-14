@@ -47,6 +47,15 @@ void add_test(){
 }
 
 int main(){
-   add_test();
+   //add_test();
+   SomeTree array_tree;
+   std::vector<int> test = {7, 5, 3, 1, 2};
+   for(int value : test){
+        array_tree.insert(value);
+   }
+   for(size_t i = 0; i <= test.size(); ++i){
+        cout << array_tree.partial_sum(3) << endl;
+   }
+   
    return 0;
 }
