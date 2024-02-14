@@ -38,4 +38,5 @@ private:
     void add(size_t i, int y, Node * node);
     Node * find(size_t i, Node * node);
     std::pair<Node *, Node *> find(size_t i, Node * node, Node * parent);
+    int partial_sum(size_t i, Node * node);
 };

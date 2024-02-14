@@ -143,6 +143,30 @@ std::pair<Node *, Node *> SomeTree::find(size_t i, Node * node, Node * parent){
     }
 }
 
+// Алгоритм
+// Ишем ноду с заданным ключём, походу собирая значения в нодах,
+// у которых значение ключа меньше заданного 
+int SomeTree::partial_sum(size_t i, Node * node){
+    if(node == nullptr) throw std::logic_error("node can't be nullptr");
+    // Когда нашли заданную ноду нужно добавить сумму значений в левом поддереве,
+    // так как слева висят все ноды с ключами меньше заданного или их там вообще нет
+    if (node->key == i) return node->value + node->sum_in_left_subtree; 
+    int part_sum = 0;
+    // Если ключ текущей ноды в ходе поиска меньше заданного,
+    // Нужно учесть текущую ноду и её левое поддерево (потому что там ключи меньше заданного)
+    if(node->key < i){
+        part_sum += node->value + node->sum_in_left_subtree;
+    }
+    if (i < node->key){
+        part_sum += partial_sum(i, node->left);
+    }
+    else{
+        part_sum += partial_sum(i, node->right);
+    }
+    
+    return part_sum;
+}
+
 #pragma endregion
 
 #pragma region public
@@ -159,20 +183,7 @@ void SomeTree::add(size_t i, int y){
 int SomeTree::partial_sum(size_t i){
     if(i > size()) throw std::out_of_range("i is greater than the array size");
     if(i == 0) return 0;
-
-    std::pair<Node *, Node *> ith_with_parent = find(i - 1, head, nullptr); // Find ith element with its parent
-    
-    Node * ith_element = ith_with_parent.first;
-    Node * ith_parent = ith_with_parent.second;
-
-    // If ith element is left child or root
-    if(ith_parent == nullptr || ith_parent->left == ith_element){
-        return ith_element->value + ith_element->sum_in_left_subtree;
-    }
-    // Else it's right child
-    else{
-        return ith_element->value + ith_parent->value + ith_parent->sum_in_left_subtree;
-    }
+    return partial_sum(i - 1 , head);
 }
 
 SomeTree::~SomeTree(){

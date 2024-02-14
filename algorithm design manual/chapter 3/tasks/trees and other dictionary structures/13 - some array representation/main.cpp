@@ -49,12 +49,12 @@ void add_test(){
 int main(){
    //add_test();
    SomeTree array_tree;
-   std::vector<int> test = {7, 5, 3, 1, 2};
+   std::vector<int> test = {7, 5, 3, 1, 2, 10, 3 , 3};
    for(int value : test){
         array_tree.insert(value);
    }
    for(size_t i = 0; i <= test.size(); ++i){
-        cout << array_tree.partial_sum(3) << endl;
+        cout << i << " " << array_tree.partial_sum(i) << endl;
    }
    
    return 0;
