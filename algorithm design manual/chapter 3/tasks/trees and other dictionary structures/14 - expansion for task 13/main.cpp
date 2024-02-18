@@ -54,8 +54,9 @@ int main(){
         array_tree.insert(test[i], i);
    }
 
-   //array_tree.remove(1);
-   //array_tree.remove(0);
+   array_tree.remove(1);
+   array_tree.remove(1);
+
 
    for(size_t i = 0; i < test.size(); ++i){
         cout << i << " " << array_tree.partial_sum(i) << endl;

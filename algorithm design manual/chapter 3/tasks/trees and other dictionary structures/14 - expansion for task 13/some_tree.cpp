@@ -222,7 +222,7 @@ void SomeTree::restore_sum_in_subtrees(Node * node){
 }
 
 Node * SomeTree::remove(int key, Node * node){
-    if(node == nullptr) return node;
+    if(node == nullptr) throw std::invalid_argument("there isn't such key");
     if(key < node->key){
         node->left = remove(key, node->left);
         restore_sum_in_subtrees(node);
