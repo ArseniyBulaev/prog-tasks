@@ -3,6 +3,38 @@
 
 #include "some_tree.h"
 
+
+#pragma region public
+
+// -1 Значит, что ключ не задан
+void SomeTree::insert(int value, int key){
+    head = key != -1 ? insert(key, value, head) : insert(tree_size, value, head);
+}
+
+void SomeTree::add(int key, int y){
+    add(key, y, head);
+}
+
+int SomeTree::partial_sum(int key){
+    return partial_sum(key, head);
+}
+
+void SomeTree::remove(int key){
+    head = remove(key, head);
+    --tree_size;
+}
+
+SomeTree::~SomeTree(){
+    delete_tree(head);
+}
+
+Node * SomeTree::find(size_t i){
+    return find(i, head);
+}
+
+#pragma endregion
+
+
 #pragma region private
 
 size_t SomeTree::get_height(Node * node){
@@ -150,7 +182,7 @@ std::pair<Node *, Node *> SomeTree::find(size_t i, Node * node, Node * parent){
 // Ишем ноду с заданным ключём, походу собирая значения в нодах,
 // у которых значение ключа меньше заданного 
 int SomeTree::partial_sum(size_t i, Node * node){
-    if(node == nullptr) throw std::logic_error("node can't be nullptr");
+    if(node == nullptr) return 0;
     // Когда нашли заданную ноду нужно добавить сумму значений в левом поддереве,
     // так как слева висят все ноды с ключами меньше заданного или их там вообще нет
     if (node->key == i) return node->value + node->sum_in_left_subtree; 
@@ -170,32 +202,49 @@ int SomeTree::partial_sum(size_t i, Node * node){
     return part_sum;
 }
 
+Node * SomeTree::find_min(Node * node){
+    return (node->left != nullptr ? find_min(node->left) : node);
+}
+
+Node * SomeTree::remove_min(Node * node){
+    if(node->left == nullptr){
+        return node->right;
+    }
+    node->left = remove_min(node->left);
+    return balance(node);
+}
+
+void SomeTree::restore_sum_in_subtrees(Node * node){
+    if(node != nullptr){
+        node->sum_in_left_subtree = node->left != nullptr ? node->left->value + node->left->sum_in_left_subtree + node->left->sum_in_right_subtree : 0;
+        node->sum_in_right_subtree = node->right != nullptr ? node->right->value + node->right->sum_in_left_subtree + node->right->sum_in_right_subtree : 0;
+    }
+}
+
+Node * SomeTree::remove(int key, Node * node){
+    if(node == nullptr) return node;
+    if(key < node->key){
+        node->left = remove(key, node->left);
+        restore_sum_in_subtrees(node);
+    }
+    else if(key > node->key){
+        node->right = remove(key, node->right);
+        restore_sum_in_subtrees(node);
+    }
+    // Элемент для удаления найден
+    else{
+        Node * left_child = node->left;
+        Node * right_child = node->right;
+        int origin_sum_in_left_subtree = node->sum_in_left_subtree;
+        delete node;
+        if(right_child == nullptr) return left_child;
+        Node * min = find_min(right_child);
+        min->right = remove_min(right_child);
+        min->left = left_child;
+        min->sum_in_left_subtree = origin_sum_in_left_subtree;
+        return balance(min);
+    }
+    return balance(node);
+}
+
 #pragma endregion
-
-#pragma region public
-
-// -1 Значит, что ключ не задан
-void SomeTree::insert(int value, int key){
-    head = key != -1 ? insert(key, value, head) : insert(tree_size, value, head);
-}
-
-void SomeTree::add(int key, int y){
-    add(key, y, head);
-}
-
-int SomeTree::partial_sum(size_t i){
-    if(i > size()) throw std::out_of_range("i is greater than the array size");
-    if(i == 0) return 0;
-    return partial_sum(i - 1 , head);
-}
-
-SomeTree::~SomeTree(){
-    delete_tree(head);
-}
-
-Node * SomeTree::find(size_t i){
-    return find(i, head);
-}
-
-#pragma endregion
-
