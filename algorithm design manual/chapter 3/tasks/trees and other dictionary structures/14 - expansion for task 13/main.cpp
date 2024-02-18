@@ -26,8 +26,8 @@ void add_test(){
     std::vector<int> random_test(test_size);
     generate(begin(random_test), end(random_test), gen);
 
-    for(int value : random_test){
-        array_tree.insert(value);
+    for(size_t i = 0; i < random_test.size(); ++i){
+        array_tree.insert(random_test[i], i);
     }
 
     for(size_t i = 0; i <= test_size; ++i){
@@ -50,12 +50,12 @@ int main(){
    //add_test();
    SomeTree array_tree;
    std::vector<int> test = {7, 5, 3, 1, 2, 10, 3 , 3};
-   for(int value : test){
-        array_tree.insert(value);
+   for(size_t i = 0; i < test.size(); ++i){
+        array_tree.insert(test[i], i);
    }
 
-   array_tree.remove(1);
-   array_tree.remove(0);
+   //array_tree.remove(1);
+   //array_tree.remove(0);
 
    for(size_t i = 0; i < test.size(); ++i){
         cout << i << " " << array_tree.partial_sum(i) << endl;

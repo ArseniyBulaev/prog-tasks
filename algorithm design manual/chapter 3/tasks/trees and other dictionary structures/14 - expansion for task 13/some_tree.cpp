@@ -8,7 +8,7 @@
 
 // -1 Значит, что ключ не задан
 void SomeTree::insert(int value, int key){
-    head = key != -1 ? insert(key, value, head) : insert(tree_size, value, head);
+    head = insert(key, value, head);
 }
 
 void SomeTree::add(int key, int y){

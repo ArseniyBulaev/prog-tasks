@@ -19,7 +19,7 @@ struct Node{
 class SomeTree{
 public:
     size_t size() { return tree_size;};
-    void insert(int value, int key = -1);
+    void insert(int value, int key);
     Node * find(size_t i);
     void add(int key, int y);
     int partial_sum(int key);
