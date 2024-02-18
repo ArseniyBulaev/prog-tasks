@@ -54,14 +54,11 @@ int main(){
         array_tree.insert(value);
    }
 
-   for(size_t i = 0; i <= test.size(); ++i){
-        cout << i << " " << array_tree.partial_sum(i) << endl;
-   }
-
-   array_tree.add(4, 2);
+   array_tree.add(0, 1);
 
    for(size_t i = 0; i <= test.size(); ++i){
         cout << i << " " << array_tree.partial_sum(i) << endl;
    }
+
    return 0;
 }

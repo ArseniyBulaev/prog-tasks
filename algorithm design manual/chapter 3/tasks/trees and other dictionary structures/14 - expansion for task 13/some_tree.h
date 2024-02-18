@@ -21,7 +21,7 @@ public:
     size_t size() { return tree_size;};
     void insert(int value, int key = -1);
     Node * find(size_t i);
-    void add(size_t i, int y);
+    void add(int key, int y);
     int partial_sum(size_t i);
     ~SomeTree();
 private:
@@ -35,7 +35,7 @@ private:
     static Node * balance(Node * node);
     static void delete_tree(Node * node);
     Node * insert(int key, int value, Node * node);
-    void add(size_t i, int y, Node * node);
+    void add(int k, int y, Node * node);
     Node * find(size_t i, Node * node);
     std::pair<Node *, Node *> find(size_t i, Node * node, Node * parent);
     int partial_sum(size_t i, Node * node);

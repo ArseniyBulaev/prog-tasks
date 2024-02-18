@@ -103,21 +103,21 @@ Node * SomeTree::insert(int key, int value, Node * node){
     return balance(node); 
 }
 
-void SomeTree::add(size_t i, int y, Node * node){
+void SomeTree::add(int key, int y, Node * node){
     
     if(node == nullptr) throw std::invalid_argument("there isn't such key");
 
-    if(node->key == i){ 
+    if(node->key == key){ 
         node->value += y;
         return;
     }
     
-    if(i < node->key){
-        add(i, y, node->left);
+    if(key < node->key){
+        add(key, y, node->left);
         node->sum_in_left_subtree += y;
     }
     else{
-        add(i, y, node->right);
+        add(key, y, node->right);
         node->sum_in_right_subtree += y;
     }
 }
@@ -179,9 +179,8 @@ void SomeTree::insert(int value, int key){
     head = key != -1 ? insert(key, value, head) : insert(tree_size, value, head);
 }
 
-void SomeTree::add(size_t i, int y){
-    if(i > size()) throw std::out_of_range("i is greater than the array size");
-    add(i, y, head);
+void SomeTree::add(int key, int y){
+    add(key, y, head);
 }
 
 int SomeTree::partial_sum(size_t i){
