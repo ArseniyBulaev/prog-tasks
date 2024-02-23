@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "const_op_array.h"
 
 ConstOpArray::ConstOpArray(size_t n, size_t m):n(n), m(m){
@@ -25,5 +27,27 @@ bool ConstOpArray::search(int x){
     }
     else{
         return false;
+    }
+}
+
+// TO DO: Нужно протестировать
+// Возвращаем истину, если элемент сохранен. Иначе - ложь
+bool ConstOpArray::insert(int x){
+    if(x < 2 || x > n - 1) return false; // Не храним такие элементы
+    size_t index_of_x = x - 2;
+    // Если элемент уже есть, то делать ничего не надо
+    if(!initialized_locations[index_of_x]){
+       if(!available_locations.empty()){
+            size_t next_available_cell = available_locations.top(); // получаем следующую свободную ячейку
+            available_locations.pop();
+            locations[index_of_x] = next_available_cell; // Сохраняем индекс нового элемента
+            elements[next_available_cell] = x; // Сохраняем элемент
+            initialized_locations[index_of_x] = true; // Теперь данная ячейка инициализирована
+            return true; // Элемент добавлен
+        }
+        else{
+            return false; // В массиве B не осталось свободного места
+        }
+        
     }
 }
