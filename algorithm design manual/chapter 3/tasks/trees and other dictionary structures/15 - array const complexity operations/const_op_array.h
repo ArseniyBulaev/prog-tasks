@@ -7,6 +7,7 @@ class ConstOpArray{
 public:
     ConstOpArray(size_t n, size_t m);
     ~ConstOpArray();
+    bool search(int x);
 private:
     size_t n; // Правая граница диапазона
     size_t m; // Число элементов, которые можно хранить
