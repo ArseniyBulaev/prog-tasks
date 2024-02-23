@@ -9,3 +9,9 @@ ConstOpArray::ConstOpArray(size_t n, size_t m){
         available_locations.push(i);
     }
 }
+
+ConstOpArray::~ConstOpArray(){
+    delete [] locations;
+    delete [] elements;
+    delete [] initialized_locations;
+}
