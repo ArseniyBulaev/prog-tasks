@@ -1,6 +1,6 @@
 #include "const_op_array.h"
 
-ConstOpArray::ConstOpArray(size_t n, size_t m){
+ConstOpArray::ConstOpArray(size_t n, size_t m):n(n), m(m){
     locations = new size_t[n];
     elements = new int[m];
     initialized_locations = new bool[n]{false}; // Сначала ничего не инициализировано
