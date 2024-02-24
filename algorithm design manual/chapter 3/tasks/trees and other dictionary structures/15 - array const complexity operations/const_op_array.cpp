@@ -52,3 +52,16 @@ bool ConstOpArray::insert(int x){
     }
     return false;
 }
+
+void ConstOpArray::remove(int x){
+    if(x < 2 || x > n - 1) throw std::invalid_argument("We don't store such elements");
+    size_t index_of_x = x - 2;
+    if(initialized_locations[index_of_x]){
+        size_t location_of_x = locations[index_of_x]; // Получение ячейки в которой лежит удаляемый элемент
+        available_locations.push(location_of_x); // Так как элемент удаляется, теперь это место снова доступно
+        initialized_locations[index_of_x] = false; // Данного элемента больше нет (логически)
+    }
+    else{
+        throw std::invalid_argument("There isn't such element");
+    }
+}

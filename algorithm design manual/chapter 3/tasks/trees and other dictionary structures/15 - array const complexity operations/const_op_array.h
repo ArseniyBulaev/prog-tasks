@@ -9,6 +9,7 @@ public:
     ~ConstOpArray();
     bool search(int x);
     bool insert(int x);
+    void remove(int x);
 private:
     size_t n; // Правая граница диапазона
     size_t m; // Число элементов, которые можно хранить
