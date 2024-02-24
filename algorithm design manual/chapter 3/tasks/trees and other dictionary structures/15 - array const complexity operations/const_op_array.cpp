@@ -30,7 +30,7 @@ bool ConstOpArray::search(int x){
     }
 }
 
-// TO DO: Нужно протестировать
+
 // Возвращаем истину, если элемент сохранен. Иначе - ложь
 bool ConstOpArray::insert(int x){
     if(x < 2 || x > n - 1) return false; // Не храним такие элементы
