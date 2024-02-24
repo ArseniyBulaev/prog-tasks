@@ -38,10 +38,10 @@ bool ConstOpArray::insert(int x){
     // Если элемент уже есть, то делать ничего не надо
     if(!initialized_locations[index_of_x]){
        if(!available_locations.empty()){
-            size_t next_available_cell = available_locations.top(); // получаем следующую свободную ячейку
+            size_t next_available_location = available_locations.top(); // получаем следующую свободную ячейку
             available_locations.pop();
-            locations[index_of_x] = next_available_cell; // Сохраняем индекс нового элемента
-            elements[next_available_cell] = x; // Сохраняем элемент
+            locations[index_of_x] = next_available_location; // Сохраняем индекс нового элемента
+            elements[next_available_location] = x; // Сохраняем элемент
             initialized_locations[index_of_x] = true; // Теперь данная ячейка инициализирована
             return true; // Элемент добавлен
         }
