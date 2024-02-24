@@ -50,4 +50,5 @@ bool ConstOpArray::insert(int x){
         }
         
     }
+    return false;
 }
