@@ -7,6 +7,6 @@ class ListDictionary: public IDictionary{
 private:
     std::list<std::string> data;
 public:
-    void insert(std::string value) override;
-    bool find (std::string value) override;
+    void insert(const std::string & value) override;
+    bool find (const std::string & value) override;
 };
