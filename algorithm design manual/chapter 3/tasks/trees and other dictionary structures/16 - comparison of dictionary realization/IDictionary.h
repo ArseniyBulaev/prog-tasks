@@ -1,7 +1,9 @@
 #pragma once
 
+#include <string>
+
 class IDictionary{
     virtual ~IDictionary();
-    virtual void insert() = 0;
-    virtual bool find() = 0;
+    virtual void insert(std::string) = 0;
+    virtual bool find(std::string) = 0;
 };
