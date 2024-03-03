@@ -4,7 +4,9 @@
 
 
 void ListDictionary::insert(const std::string & value){
-    data.push_back(value);
+    if(!find(value)){
+        data.push_back(value);
+    }
 }
 
 bool ListDictionary::find(const std::string & value){

@@ -17,9 +17,7 @@ void perfomance_test(IDictionary & dictionary, const std::string & test_text){
     std::stringstream test_text_buffer = get_text(test_text);
     std::string word;
     while(test_text_buffer >> word){
-        if(!dictionary.find(word)){
-            dictionary.insert(word);
-        }
+        dictionary.insert(word);
     }
 }
 
