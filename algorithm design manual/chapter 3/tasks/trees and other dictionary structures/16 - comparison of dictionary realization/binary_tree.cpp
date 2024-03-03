@@ -38,7 +38,12 @@ Node * Tree::search(Node * current, const std::string & target) const{
 
 bool Tree::search(const std::string & target) const{
     Node * search_result = search(head, target);
-    return search_result->item == target;
+    if (search_result == nullptr){
+        return false;
+    }
+    else{
+        return search_result->item == target;
+    }
 }
 
 
