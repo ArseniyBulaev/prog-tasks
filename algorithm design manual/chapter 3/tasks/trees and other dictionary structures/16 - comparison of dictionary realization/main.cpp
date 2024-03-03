@@ -6,6 +6,7 @@
 
 #include "IDictionary.h"
 #include "ListDictionary.h"
+#include "BinaryTreeDictionary.h"
 
 std::stringstream get_text(const std::string & file_name){
     std::ifstream file_with_text(file_name);
@@ -33,5 +34,8 @@ int main(){
     // Тестирование словаря на листе
     ListDictionary list_dictionary; 
     perfomance_test(list_dictionary, "test_text.txt", "list dictionary");
+    // Тестирование словаря на бинарном дереве
+    BinaryTreeDictionary binary_tree_dictionary;
+    perfomance_test(binary_tree_dictionary, "test_text.txt", "binary tree dictionary");
     return 0;
 }
