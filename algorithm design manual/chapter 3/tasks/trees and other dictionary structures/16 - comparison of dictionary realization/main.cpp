@@ -8,6 +8,7 @@
 #include "ListDictionary.h"
 #include "BinaryTreeDictionary.h"
 #include "BalancedBinaryTreeDictionary.h"
+#include "HashTableDictionary.h"
 
 std::stringstream get_text(const std::string & file_name){
     std::ifstream file_with_text(file_name);
@@ -42,5 +43,8 @@ int main(){
     // Тестирование словаря на сбалансированном бинарном дереве
     BalancedBinaryTreeDictionary balanced_binary_tree_dictionary;
     perfomance_test(balanced_binary_tree_dictionary, test_file_name, "balanced binary tree");
+    // Тесирование словаря на Хеш-таблице
+    HashTableDictionary hash_table_dictionary;
+    perfomance_test(hash_table_dictionary, test_file_name, "hash table");
     return 0;
 }
