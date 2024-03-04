@@ -32,14 +32,15 @@ void perfomance_test(IDictionary & dictionary, const std::string & test_text, co
 
 
 int main(){
+    std::string test_file_name = "test_text.txt";
     // Тестирование словаря на листе
     ListDictionary list_dictionary; 
-    perfomance_test(list_dictionary, "test_text.txt", "list dictionary");
+    perfomance_test(list_dictionary, test_file_name, "list");
     // Тестирование словаря на бинарном дереве
     BinaryTreeDictionary binary_tree_dictionary;
-    perfomance_test(binary_tree_dictionary, "test_text.txt", "binary tree dictionary");
+    perfomance_test(binary_tree_dictionary, test_file_name, "binary tree");
     // Тестирование словаря на сбалансированном бинарном дереве
     BalancedBinaryTreeDictionary balanced_binary_tree_dictionary;
-    perfomance_test(balanced_binary_tree_dictionary, "test_text.txt", "balanced binary tree");
+    perfomance_test(balanced_binary_tree_dictionary, test_file_name, "balanced binary tree");
     return 0;
 }
