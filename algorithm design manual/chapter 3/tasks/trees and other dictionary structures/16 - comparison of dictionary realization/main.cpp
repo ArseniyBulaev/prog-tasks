@@ -7,6 +7,7 @@
 #include "IDictionary.h"
 #include "ListDictionary.h"
 #include "BinaryTreeDictionary.h"
+#include "BalancedBinaryTreeDictionary.h"
 
 std::stringstream get_text(const std::string & file_name){
     std::ifstream file_with_text(file_name);
@@ -26,7 +27,7 @@ void perfomance_test(IDictionary & dictionary, const std::string & test_text, co
 
     auto execution_time = end - start;
     std::chrono::milliseconds duration = std::chrono::duration_cast<std::chrono::milliseconds>(execution_time);
-    std::cout << "execution time of " << dict_type << ": " << execution_time.count() << " ms" <<  std::endl;
+    std::cout << "execution time of " << dict_type << ": " << duration.count() << "ms" <<  std::endl;
 }
 
 
@@ -37,5 +38,8 @@ int main(){
     // Тестирование словаря на бинарном дереве
     BinaryTreeDictionary binary_tree_dictionary;
     perfomance_test(binary_tree_dictionary, "test_text.txt", "binary tree dictionary");
+    // Тестирование словаря на сбалансированном бинарном дереве
+    BalancedBinaryTreeDictionary balanced_binary_tree_dictionary;
+    perfomance_test(balanced_binary_tree_dictionary, "test_text.txt", "balanced binary tree");
     return 0;
 }
