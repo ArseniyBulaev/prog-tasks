@@ -126,13 +126,13 @@ int main(){
     std::unordered_map<char, int> alphabet;
     std::unordered_map<int, char> reverse_alphabet;
     const std::string text_path = "text\\input.txt";
-    const int k = 3;
+    const int k = 14;
     generate_english_alphabet(alphabet, reverse_alphabet);
     std::string original_text = read_text(text_path);
     std::string cipher_text = chipher(original_text, alphabet, reverse_alphabet, k);
-    std::string decipher_text = decipher(cipher_text, alphabet, reverse_alphabet, k);
-    std::cout << "cipher text == decipher text " << (original_text == decipher_text) << std::endl;
     std::unordered_map<char, double> letter_frequency = calculate_letter_frequency(cipher_text);
-    int coputed_key = compute_key(alphabet, letter_frequency);
+    int coputed_k = compute_key(alphabet, letter_frequency);
+    std::string decipher_text = decipher(cipher_text, alphabet, reverse_alphabet, coputed_k);
+    std::cout << "cipher text == decipher text " << (original_text == decipher_text) << std::endl;
     return 0;
 }
