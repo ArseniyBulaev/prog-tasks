@@ -3,7 +3,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <string>
-
+#include <vector>
 
 std::string read_text(const std::string & file_path){
     std::ifstream input_file(file_path);
@@ -104,36 +104,25 @@ std::unordered_map<char, double> calculate_letter_frequency(const std::string & 
     return letter_to_frequency;
 }
 
+int compute_key(const std::unordered_map<char,int> & alphabet, std::unordered_map<char, double> letter_frequency){
+    const double frequency_of_e = 12.7;
+    // Точность
+    const double eps = 0.5;
+    char letter_standing_in_place_e;
+    // Ищем букву, которая стоит на месте e
+    for(const auto letter_frequency_pair: letter_frequency){
+        char letter = letter_frequency_pair.first;
+        double frequency = letter_frequency_pair.second;
+        if(abs(frequency - frequency_of_e) < eps){
+            letter_standing_in_place_e = letter;
+            break;
+        }
+    }
+    int k = abs(alphabet.at('e') - alphabet.at(letter_standing_in_place_e));
+    return k;
+}
+
 int main(){
-    std::unordered_map<char, double> english_letter_frequency = {
-        {'e', 12.7},
-        {'t', 9.06},
-        {'a', 8.17},
-        {'o', 7.51},
-        {'i', 6.97},
-        {'n', 6.75},
-        {'s', 6.33},
-        {'h', 6.09},
-        {'r', 5.99},
-        {'d', 4.25},
-        {'l', 4.03},
-        {'c', 2.78},
-        {'u', 2.76},
-        {'m', 2.41},
-        {'w', 2.36},
-        {'f', 2.23},
-        {'g', 2.02},
-        {'y', 1.97},
-        {'p', 1.93},
-        {'b', 1.49},
-        {'v', 0.98},
-        {'k', 0.77},
-        {'x', 0.15},
-        {'j', 0.15},
-        {'q', 0.1},
-        {'z', 0.7},
-    };
-    
     std::unordered_map<char, int> alphabet;
     std::unordered_map<int, char> reverse_alphabet;
     const std::string text_path = "text\\input.txt";
@@ -143,6 +132,7 @@ int main(){
     std::string cipher_text = chipher(original_text, alphabet, reverse_alphabet, k);
     std::string decipher_text = decipher(cipher_text, alphabet, reverse_alphabet, k);
     std::cout << "cipher text == decipher text " << (original_text == decipher_text) << std::endl;
-    std::unordered_map<char, double> letter_frequency = calculate_letter_frequency(original_text);
+    std::unordered_map<char, double> letter_frequency = calculate_letter_frequency(cipher_text);
+    int coputed_key = compute_key(alphabet, letter_frequency);
     return 0;
 }
