@@ -97,5 +97,6 @@ int main(){
     std::string original_text = read_text(text_path);
     std::string cipher_text = chipher(original_text, alphabet, reverse_alphabet, k);
     std::string decipher_text = decipher(cipher_text, alphabet, reverse_alphabet, k);
+    std::cout << "cipher text == decipher text " << (original_text == decipher_text) << std::endl;
     return 0;
 }
