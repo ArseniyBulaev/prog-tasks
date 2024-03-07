@@ -87,6 +87,22 @@ std::string decipher(const std::string & cipher_text, const std::unordered_map<c
     return text_buffer.str();
 }
 
+std::unordered_map<char, double> calculate_letter_frequency(const std::string & text){
+    std::unordered_map<char, double> letter_to_frequency;
+    int total_alphabet_letters_count = 0;
+    for (char symbol: text){
+        if(isalpha(symbol)){
+            ++letter_to_frequency[tolower(symbol)];
+            ++total_alphabet_letters_count;
+        }
+    }
+    for(auto letter_and_its_frequency : letter_to_frequency){
+        char letter = letter_and_its_frequency.first;
+        double frequency = letter_and_its_frequency.second;
+        letter_to_frequency[letter] = (frequency / total_alphabet_letters_count) * 100;
+    }
+    return letter_to_frequency;
+}
 
 int main(){
     std::unordered_map<char, int> alphabet;
@@ -98,5 +114,6 @@ int main(){
     std::string cipher_text = chipher(original_text, alphabet, reverse_alphabet, k);
     std::string decipher_text = decipher(cipher_text, alphabet, reverse_alphabet, k);
     std::cout << "cipher text == decipher text " << (original_text == decipher_text) << std::endl;
+    std::unordered_map<char, double> letter_frequency = calculate_letter_frequency(original_text);
     return 0;
 }
