@@ -31,12 +31,42 @@ std::unordered_map<int, char> & reverse_alphabet){
     }
 }
 
+// k - ключ, сдвиг
+std::string chipher(const std::string & text, std::unordered_map<char, int> & alphabet, std::unordered_map<int,char> & reverse_alphabet, const int k){
+    std::stringstream chiper_text_buffer;
+    // n - мощность алфавита
+    const int n  = alphabet.size();
+    for(char symbol: text){
+        auto search = alphabet.find(tolower(symbol));
+        if(search != alphabet.end()){
+            // p - номер буквы в алфавите, взятой из открытого текста
+            int p = search->second;
+            // c - номер буквы в алфавите в шифрованном тексте
+            int c = (p + k) % n;
+            // Шифр буквы
+            char chipher_letter = reverse_alphabet.at(c);
+            // Перевод в верхний регистр, если исходный символ в нём
+            if(isupper(symbol)){
+                chipher_letter = toupper(chipher_letter);
+            }
+            chiper_text_buffer << chipher_letter;
+        }
+        // Если символа нет в алфавите, то записываем его как есть
+        else{
+            chiper_text_buffer << symbol;
+        }
+    }
+    return chiper_text_buffer.str();
+}
+
 
 int main(){
     std::unordered_map<char, int> alphabet;
     std::unordered_map<int, char> reverse_alphabet;
     const std::string text_path = "text\\input.txt";
+    const int k = 3;
     generate_english_alphabet(alphabet, reverse_alphabet);
     std::string original_text = read_text(text_path);
+    std::string cipher_text = chipher(original_text, alphabet, reverse_alphabet, k);
     return 0;
 }
