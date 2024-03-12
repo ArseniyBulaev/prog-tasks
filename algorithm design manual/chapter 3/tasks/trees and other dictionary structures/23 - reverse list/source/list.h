@@ -17,4 +17,6 @@ public:
     void insert(char * element);
     Node * predecessor(char * element);
     void erase(char * element);
+    void reverse();
+    void reverse_recursive(Node * node);
 };

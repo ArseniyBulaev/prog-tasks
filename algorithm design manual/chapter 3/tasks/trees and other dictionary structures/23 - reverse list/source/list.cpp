@@ -96,3 +96,12 @@ Node * List::search(const char * target) const{
         delete element_to_delete;
     }
  }
+
+ void List::reverse(){
+   
+ }
+
+ void List::reverse_recursive(Node * node){
+   
+    
+ }
