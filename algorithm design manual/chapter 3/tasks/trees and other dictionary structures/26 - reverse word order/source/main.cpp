@@ -26,13 +26,20 @@ std::vector<char> transform_string_to_vector(const std::string & str){
 
 
 void flip(std::vector<char> & str, size_t size, size_t start = 0){
-    for(size_t i = start; i < size / 2; ++i){
-        std::swap(str[i + start], str[size - i - 1]);
+    for(size_t i = 0; i < size / 2; ++i){
+        std::swap(str[start + i], str[start + size - (i + 1)]);
     }
 }
 
 void reverse_word_order(std::vector<char> & str){
-
+    flip(str, str.size());
+    size_t processed_to_here = 0;
+    for(size_t i = 0; i <= str.size(); ++i){
+        if(str[i] == ' ' || i == (str.size())){
+            flip(str, i - processed_to_here, processed_to_here);
+            processed_to_here = i + 1;
+        }
+    }
 }
 
 
@@ -40,6 +47,7 @@ int main(){
     const std::string input_string_path = "..\\input\\sample.txt";
     std::string input = read_text(input_string_path);
     std::vector<char> input_v = transform_string_to_vector(input);
-    flip(input_v, input_v.size());
+    reverse_word_order(input_v);
+    std::cout << std::string(input_v.begin(), input_v.end()) << std::endl;
     return 0;
 }
