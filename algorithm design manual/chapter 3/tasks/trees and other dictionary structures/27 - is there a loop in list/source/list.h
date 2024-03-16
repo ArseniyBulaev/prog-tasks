@@ -17,4 +17,5 @@ public:
     void insert(char * element);
     Node * predecessor(char * element);
     void erase(char * element);
+    bool is_there_a_loop();
 };

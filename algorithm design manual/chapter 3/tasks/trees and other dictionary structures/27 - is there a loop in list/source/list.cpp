@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_set>
 
 #include "list.h"
 
@@ -97,3 +98,20 @@ Node * List::search(const char * target) const{
     }
  }
 
+
+bool List::is_there_a_loop(){
+    std::unordered_set<Node *> visited;
+    Node * previous = nullptr;
+    Node * current = head;
+    while(current != nullptr && (visited.find(current) == visited.end())){
+        visited.insert(current);
+        previous = current;
+        current = current->next;
+    }
+    
+    if(current != nullptr){
+        std::cout << std::endl << previous->data << " links to already visited node " << current->data << std::endl;
+    }
+
+    return current != nullptr;
+}

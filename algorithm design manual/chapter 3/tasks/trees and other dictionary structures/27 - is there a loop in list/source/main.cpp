@@ -1,10 +1,8 @@
+#include <iostream>
 #include <unordered_set>
 #include "list.h"
 
-bool is_there_a_loop(const List & lst){
-    std::unordered_set<Node *> visited;
 
-}
 
 
 int main(){
@@ -12,9 +10,11 @@ int main(){
     size_t size = sizeof(input) / sizeof(input[0]);
     List lst(input, size);
     lst.print();
+    std::cout << "is there a loop ? " << lst.is_there_a_loop() << std::endl;
     Node * a = lst.search("a");
     Node * c = lst.search("c");
-    //c->next = a;
-    //lst.print();
+    c->next = a;
+    std::cout << "is there a loop ? " << lst.is_there_a_loop() << std::endl;
+    c->next = nullptr;
     return 0;
 }
