@@ -8,5 +8,6 @@ int main(){
     lst.insert("b");
     lst.insert("c");
     lst.print();
+    lst.reverse();
     return 0;
 }
