@@ -1,3 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
 project(is_there_a_loop_in_list LANGUAGES CXX)
+add_library(list list.cpp)
 add_executable(myExe main.cpp)
+target_link_libraries(myExe PUBLIC list)
