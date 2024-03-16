@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include <fstream>
 #include <sstream>
 
@@ -19,9 +20,14 @@ std::string read_text(const std::string & file_path){
     return text;
 }
 
+std::vector<char> transform_string_to_vector(const std::string & str){
+    return std::vector<char>(str.begin(), str.end());
+}
+
 int main(){
     const std::string input_string_path = "..\\input\\sample.txt";
     std::string input = read_text(input_string_path);
-    std::cout << input << std::endl;
+    std::vector<char> input_v = transform_string_to_vector(input);
+    
     return 0;
 }
