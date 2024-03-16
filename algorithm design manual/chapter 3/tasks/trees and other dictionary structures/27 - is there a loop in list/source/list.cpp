@@ -12,7 +12,7 @@
     }
 }
 
-List::List(char ** strs, int size){
+List::List(const char ** strs, int size){
     head = new Node {strs[0], nullptr};
     Node * current = head;
     for(int i = 1; i < size; ++i){

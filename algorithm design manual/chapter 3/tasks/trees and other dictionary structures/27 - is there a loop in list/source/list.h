@@ -1,6 +1,6 @@
 #pragma once
 struct Node{
-    char * data = nullptr;
+    const char * data = nullptr;
     Node * next = nullptr;
 };
 
@@ -9,7 +9,7 @@ private:
     Node * head = nullptr;
 public:
     List() = default;
-    List(char ** strs, int size);
+    List(const char ** strs, int size);
     List(const List & source);
     ~List();
     void print();
