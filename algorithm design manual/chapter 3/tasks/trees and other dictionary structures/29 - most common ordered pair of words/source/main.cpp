@@ -24,7 +24,7 @@ std::string read_text(const std::string & file_path){
 }
 
 
-std::string get_most_common_pair_of_words(const std::string & str){
+std::pair<std::string, size_t> get_most_common_pair_of_words(const std::string & str){
     std::unordered_map<std::string, size_t> word_pair_frequency;
     using pair_type = decltype(word_pair_frequency)::value_type;
     std::stringstream str_stream(str);
@@ -43,13 +43,14 @@ std::string get_most_common_pair_of_words(const std::string & str){
         return p1.second < p2.second;
     }
     );
-    return most_common_pair_of_words->first;
+    return *most_common_pair_of_words;
 }
 
 
 int main(){
     const std::string text_file_path = "..\\input\\text.txt";
     const std::string input_text = read_text(text_file_path);
-    std::cout << "most common pair of words: " << get_most_common_pair_of_words(input_text) << std::endl;
+    auto most_common_pair_of_words = get_most_common_pair_of_words(input_text);
+    std::cout << "most common pair of words: " << most_common_pair_of_words.first  << " . It's frequency: " << most_common_pair_of_words.second << std::endl;
     return 0;
 }
