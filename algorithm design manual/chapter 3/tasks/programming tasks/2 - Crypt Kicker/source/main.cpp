@@ -1,77 +1,116 @@
-#include <string>
-#include <fstream>
-#include <vector>
-#include <sstream>
 #include <iostream>
-#include <iterator>
-#include <cstddef>
-#include <unordered_set>
-#include <unordered_map>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <stdio.h>      /* printf */
+#include <stdlib.h>     /* abs */
+#include <cmath>
+#include <map>
+#include <queue>
+#include <functional>
+#include <sstream>
+#include <vector>
 #include <algorithm>
-
-std::string read_text(const std::string & file_path){
-    std::ifstream input_file(file_path);
-    std::string text;
-    if(input_file.is_open()){
-        input_file.seekg(0, std::ios::end);
-        size_t size = input_file.tellg();
-        text = std::string(size, ' ');
-        input_file.seekg(0);
-        input_file.read(&text[0], size); 
-    }
-    else{
-        std::cout << "the file did not open" << std::endl;
-    }
-    return text;
+using namespace std;
+vector<string> Dictionary;
+int Mappings[2][128];
+ 
+void initMappings()
+{
+    for (int j=0; j<2; j++) for (int i=0; i<128; i++) Mappings[j][i] = '*';
 }
-
-std::unordered_map<char, double> calculate_frequencies(const std::unordered_set<std::string> & words){
-    std::unordered_map<char, double> frequencies;
-    size_t number_of_letters = 0;
-    for(const std::string & word: words){
-        for(char letter : word){
-            ++frequencies[letter];
-            ++number_of_letters; 
+ 
+bool MapWord(string DWord, string TWord)
+{
+    int OriginalMappings[2][128];
+    for (int j=0; j<2; j++) for (int i='a'; i<='z'; i++) OriginalMappings[j][i] = Mappings[j][i];
+ 
+    for (int i=0; i<(int)DWord.length(); i++)
+        if ( (Mappings[0][DWord[i]] == '*' && Mappings[1][TWord[i]] == '*')
+            || (Mappings[0][DWord[i]] == TWord[i] && Mappings[1][TWord[i]] == DWord[i]))
+            Mappings[0][DWord[i]] = TWord[i],  Mappings[1][TWord[i]] = DWord[i];
+        else
+            {
+                for (int j=0; j< 2; j++) for (int i='a'; i<='z'; i++) Mappings[j][i] = OriginalMappings[j][i];
+                return false;
+            }
+    return true;
+}
+bool match(vector<string> splitTokens, int start)
+{
+    int OriginalMappings[2][128];
+    for (int j=0; j<2; j++) for (int i='a'; i<='z'; i++) OriginalMappings[j][i] = Mappings[j][i];
+ 
+    for (int i=0; i<Dictionary.size(); i++)
+    {
+        if (splitTokens[start].length() == Dictionary[i].length())
+            {
+                if (MapWord(Dictionary[i], splitTokens[start]))
+                {
+                    if (start == splitTokens.size()-1) return true;
+ 
+                    if (match(splitTokens, start+1)) return true;
+                    else for (int j=0; j< 2; j++)
+                        for (int i='a'; i<='z'; i++)
+                            Mappings[j][i] = OriginalMappings[j][i];
+                }
+            }
+    }
+ 
+    return false;
+}
+ 
+void outputModified(vector<string> splitTokens)
+{
+ 
+    for (int i=0; i<splitTokens.size(); i++)
+    {
+        for (int j=0; j<(int)splitTokens[i].length(); j++) cout << (char)Mappings[1][splitTokens[i][j]];
+ 
+        if (i != splitTokens.size()-1) cout << " ";
+    }
+}
+ 
+bool compareStrings(string S1, string S2)
+{
+    return (int)S1.length() > (int)S2.length();
+}
+int main()
+{
+    int n;
+    scanf("%d\n",&n);
+    char input[93];
+ 
+    for (int i=0; i<n; i++)
+    {
+        string token;
+        char T[100];
+        gets(T);
+        token = T;
+        Dictionary.push_back(token);
+    }
+    scanf("\n");
+ 
+    while(fgets(input, 93,stdin)!= NULL)
+    {
+        string token;
+        stringstream s(input);
+        vector<string> splitTokens;
+        while(s >> token)
+        {
+            splitTokens.push_back(token);
         }
+        if (splitTokens.size() == 0) {cout << endl; continue;}
+        initMappings();
+        vector<string> sortedSplitTokens;
+        for (int i=0; i<splitTokens.size(); i++) sortedSplitTokens.push_back(splitTokens[i]);
+        sort(sortedSplitTokens.begin(), sortedSplitTokens.end(), compareStrings);
+        match(sortedSplitTokens,0);
+        outputModified(splitTokens);
+        cout << endl;
+ 
     }
-    for(auto & letter_frequency: frequencies){
-        letter_frequency.second /= number_of_letters;
-    }
-
-    return frequencies;
-}
-
-
-std::unordered_map<char, char> get_decryption(const std::unordered_set<std::string> & words, const std::unordered_map<char, double> dictionary_letters_frequencies){
-    auto encrypted_letters_frequencies = calculate_frequencies(words);
-    return std::unordered_map<char, char>();
-}
-
-
-int main(){
-    const std::string input_file_path = "..\\input\\input.txt";
-    const std::string input = read_text(input_file_path);
-    std::stringstream input_stream(input);
-    std::string word, input_line;
-    size_t n;
-    input_stream >> n;
-    std::unordered_set<std::string> dictionary, unique_words_line;
-    for(size_t i = 1; i <= n; ++i){
-        input_stream >> word;
-        dictionary.insert(word);
-    }
-
-    auto dictionary_letters_frequencies = calculate_frequencies(dictionary);
-
-    while(getline(input_stream, input_line)){
-        if(input_line == "") continue;
-        std::stringstream line_stream(input_line);
-        std::string word_in_input_line;
-        while(line_stream >> word_in_input_line){
-            unique_words_line.insert(word_in_input_line);
-        }
-        get_decryption(unique_words_line, dictionary_letters_frequencies);
-    }
-    
+ 
     return 0;
 }
