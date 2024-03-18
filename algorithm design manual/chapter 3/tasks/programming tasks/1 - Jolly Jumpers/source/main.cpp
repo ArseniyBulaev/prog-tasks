@@ -26,9 +26,10 @@ std::string read_text(const std::string & file_path){
 
 
 bool is_it_jolly(const std::vector<int> & sample){
-    const int n = sample[0];
+    const size_t n = sample[0];
     // The definition implies that any sequence of a single integer is a jolly jumper
     if(n == 1) return true;
+    if(n != sample.size() - 1) return false;
     std::vector<bool> jolly_condition(n - 1, false);
     for(size_t i = 1; i < n; ++i){
         size_t possible_part_of_jolly_condition = abs(sample[i] - sample[i + 1]);
