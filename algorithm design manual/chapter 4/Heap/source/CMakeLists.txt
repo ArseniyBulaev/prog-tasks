@@ -1,6 +1,4 @@
 cmake_minimum_required(VERSION 3.5)
 project(heap LANGUAGES CXX)
 add_executable(myExe main.cpp)
-add_library(heap heap.cpp)
 target_compile_options(myExe PRIVATE -Wall -Wextra -Wpedantic)
-target_link_libraries(myExe PRIVATE heap)
