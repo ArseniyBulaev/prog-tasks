@@ -7,9 +7,11 @@ template <typename T>
 class Heap{
 public:
     Heap(): elements(std::vector<T>()) {};
+    // O((el_size)*log(el_size)), el_size - elements size
     Heap(const std::vector<T> & elements){
         for(T element: elements) insert(element);
     }
+    // O(log(n))
     void insert(T item){
         elements.push_back(item);
         bubble_up(n);
