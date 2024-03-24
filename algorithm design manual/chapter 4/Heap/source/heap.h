@@ -6,9 +6,9 @@
 template <typename T>
 class Heap{
 public:
-    Heap(size_t n): n(n), elements(std::vector<T>(n)) {};
+    Heap(): elements(std::vector<T>()) {};
 private:
-    size_t n;
+    size_t n = 0;
     std::vector<T> elements;
     int get_parent(size_t n);
     size_t young_child(size_t n);
