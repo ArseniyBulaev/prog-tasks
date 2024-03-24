@@ -3,7 +3,6 @@
 
 
 int main(){
-	size_t heap_size = 10;
-	Heap<int> heap();
+	Heap<int> heap;
 	return 0;
 }
