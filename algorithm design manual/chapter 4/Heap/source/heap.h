@@ -10,4 +10,6 @@ public:
 private:
     size_t n;
     std::vector<T> elements;
+    int get_parent(size_t n);
+    size_t young_child(size_t n);
 };
