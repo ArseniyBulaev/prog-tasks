@@ -2,14 +2,13 @@
 #include <iostream>
 #include <algorithm>
 #include <random>
-#include <unordered_map>
 
 // Task size
 const size_t task_size = 10;
 // Random staff
 auto rd = std::random_device {}; 
-const auto rng = std::default_random_engine { rd() };
-const std::uniform_int_distribution<std::mt19937::result_type> dist_task_size(0, task_size - 1);
+auto rng = std::default_random_engine { rd() };
+std::uniform_int_distribution<std::mt19937::result_type> dist_task_size(0, task_size - 1);
 
 int partition(std::vector<int> & s, int l, int h){
 	int p; // Ведущий элемент
@@ -27,8 +26,17 @@ int partition(std::vector<int> & s, int l, int h){
 }
 
 
-void find_pairs(const std::vector<int> & nuts, const std::vector<int> & bolts){
+void recursive_step(std::vector<int> & nuts
+				, size_t nuts_lower_bound
+				, size_t nuts_upper_bound
+				, const std::vector<int> & bolts
+				, const size_t pivot_bolt_index){
 
+}
+
+void find_pairs(const std::vector<int> & nuts, const std::vector<int> & bolts){
+	std::vector<int> nuts_copy = nuts; // work with copy to know initial positions
+	recursive_step(nuts_copy, 0, nuts_copy.size() - 1, bolts, dist_task_size(rng));
 }
 
 
@@ -41,6 +49,8 @@ int main(){
 	// Shuffle
 	std::shuffle(std::begin(bolts), std::end(bolts), rng);
 	std::shuffle(std::begin(nuts), std::end(nuts), rng);
+
+
 
 	return 0;
 } 
