@@ -51,7 +51,7 @@ private:
         size_t min_index = item_index;
         size_t child_index = get_young_child_index(item_index);
         for(size_t i = 0; i <= 1; ++i){
-            if(child_index + i <= get_size()){
+            if(child_index + i < get_size()){
                 if(elements[child_index + i] < elements[min_index]){
                     min_index = child_index + i;
                 }
