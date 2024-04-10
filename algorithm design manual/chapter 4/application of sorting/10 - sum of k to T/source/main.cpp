@@ -22,7 +22,7 @@ void print_subsequence(const std::vector<int> & S, const std::vector<size_t> & i
 
 bool sum_of_k_to_T(std::vector<int> S, size_t k, int T){
 	// Initialize vector
-	const size_t n = S.size();
+	const size_t n = S.size() - 1;
 	// Indexes array size
 	const int m = k - 1;
 	std::vector<size_t> indexes(m, 0);
@@ -31,7 +31,7 @@ bool sum_of_k_to_T(std::vector<int> S, size_t k, int T){
 	std::sort(S.begin(), S.end());
 	
 	
-	while(n - 1 - indexes[0] >= m){
+	while(n  - indexes[0] >= m){
 		// Print current subsequence
 		print_subsequence(S, indexes);
 
@@ -43,15 +43,22 @@ bool sum_of_k_to_T(std::vector<int> S, size_t k, int T){
 			return true;
 		}
 
-		// Get next subsequence from S
+		// Get next subsequence from S. Start from last element
 		int i = 0;
-		// Wrong condition
-		while(!(indexes[m - i - 1] < n - 1 - i) ){
-			indexes[m - i - 1] = indexes[m - i - 2] + 2;
-			++i;
 
+		while((i < m - 1) && (indexes[m - 1 - i] >= n - 1 - i)){
+			indexes[m - 1 - i] = 0;
+			++i;
 		}
-		++indexes[m - i - 1];
+
+		++indexes[m - 1 - i];
+
+		if(i != 0){
+			for (int j = m - i; j < m; j++)
+			{
+				indexes[j] = indexes[j - 1] + 1;
+			}
+		}
 	}
 	return false;
 }
@@ -59,9 +66,11 @@ bool sum_of_k_to_T(std::vector<int> S, size_t k, int T){
 
 
 int main(){
-	int T = 30;
-	std::vector<int> S = {1,2,3,4};
-	size_t k = 4; 
+	int T = 12;
+	size_t n = 50;
+	std::vector<int> S(n, 0);
+	std::iota(S.begin(), S.end(), 1);
+	size_t k = 3; 
 	std::cout << (sum_of_k_to_T(S, k, T) ? "found" : "not found") << std::endl;
 	return 0;
 }
