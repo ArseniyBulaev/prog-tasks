@@ -64,7 +64,22 @@ int median(vector){
 
 int median_recursive_step(vector, left_border, right_border, num_of_el_on_the_left, num_of_el_on_the_right){
     1. Generate pivot
-    2. Calculate 
+    3. Make partition by pivot
+    2. Calculate number of elements on the left and on the right from pivot
+    if (num_of_el_on_the_left_from_pivot == num_of_el_on_the_right_from_pivot || 
+        num_of_el_on_the_left_from_pivot - num_of_el_on_the_right_from_pivot == 1){
+        return pivot;
+    }
+    else{
+        if(num_of_el_on_the_left_from_pivot > num_of_el_on_the_right_from_pivot){
+            num_of_el_on_the_right += num_of_el_on_the_right_from_pivot;
+            return median_recursive_step(vector, left_border, pivot - 1, num_of_el_on_the_left, num_of_el_on_the_right);
+        }
+        else{
+            num_of_el_on_the_left += num_of_el_on_the_left_from_pivot;
+            return median_recursive_step(vector, pivot, right_border, num_of_el_on_the_left, num_of_el_on_the_right);
+        }
+    }
 }
 */
 
