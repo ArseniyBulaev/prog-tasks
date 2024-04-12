@@ -50,10 +50,28 @@ void partition_test(std::vector<int> vec){
     std::copy(it, std::end(vec), std::ostream_iterator<int>(std::cout, " "));
 }
 
+int test_median(std::vector<int> &v){
+    size_t n = v.size() / 2;
+    nth_element(v.begin(), v.begin()+n, v.end());
+    return v[n];
+}
+
+
+/*
+int median(vector){
+    return median_recursive_step(vector, 0, vector.size() - 1, 0, 0);
+}
+
+int median_recursive_step(vector, left_border, right_border, num_of_el_on_the_left, num_of_el_on_the_right){
+    1. Generate pivot
+    2. Calculate 
+}
+*/
 
 int main(){
     using std::cout, std::endl;
-    std::vector<int> vec = get_random_vector(10, 1, 10);
-    partition_test(vec);
+    std::vector<int> vec = get_random_vector(4, 1, 10);
+    std::cout << vec << std::endl;
+    std::cout << "median " << test_median(vec) << std::endl;
     return 0;
 }
