@@ -56,13 +56,15 @@ int test_median(std::vector<int> &v){
     return v[n];
 }
 
+typedef std::vector<int>::iterator vec_int_it;
 
-/*
-int median(vector){
-    return median_recursive_step(vector, 0, vector.size() - 1, 0, 0);
+int median(std::vector<int> vec){
+    return median_recursive_step(vec, vec.begin(), vec.end(), 0, 0);
 }
 
-int median_recursive_step(vector, left_border, right_border, num_of_el_on_the_left, num_of_el_on_the_right){
+
+int median_recursive_step(std::vector<int> & vec, vec_int_it left_border, vec_int_it right_border, int num_of_el_on_the_left, int num_of_el_on_the_right){
+/*
     1. Generate pivot
     3. Make partition by pivot
     2. Calculate number of elements on the left and on the right from pivot
@@ -80,8 +82,9 @@ int median_recursive_step(vector, left_border, right_border, num_of_el_on_the_le
             return median_recursive_step(vector, pivot, right_border, num_of_el_on_the_left, num_of_el_on_the_right);
         }
     }
-}
 */
+}
+
 
 int main(){
     using std::cout, std::endl;
