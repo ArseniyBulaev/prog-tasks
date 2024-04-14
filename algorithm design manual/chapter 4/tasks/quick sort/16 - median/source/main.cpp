@@ -6,6 +6,10 @@
 #include <ostream>
 #include <iterator>
 
+
+std::random_device rnd_device;
+std::mt19937 mersenne_engine {rnd_device()};
+
 std::ostream & operator << (std::ostream & os, const std::vector<int> & vec){
     for(size_t i = 0; i < vec.size(); i++){
         std::cout << vec[i];
@@ -65,16 +69,20 @@ typedef std::vector<int>::iterator vec_int_it;
 
 int median_recursive_step(std::vector<int> & vec, vec_int_it left_border, vec_int_it right_border, int l_prev, int r_prev){
     // Generate pivot
-    using std::random_device, std::mt19937, std::uniform_int_distribution;
-    random_device rnd_device;
-    mt19937 mersenne_engine {rnd_device()};
-    uniform_int_distribution<size_t> dist {0, static_cast<size_t>(std::distance(left_border, right_border) - 1)};
+    std::uniform_int_distribution<size_t> dist {0, static_cast<size_t>(std::distance(left_border, right_border) - 1)};
     int pivot = *(left_border + dist(mersenne_engine));
     // Make partition by pivot
-    auto first_of_second_group = std::partition(left_border, right_border, [pivot](int e) { return e < pivot;});
+    auto pivot_it = std::partition(left_border, right_border, [pivot](const auto& em)
+    {
+        return em < pivot;
+    });
+    auto first_of_second_group_it = std::partition(pivot_it, right_border, [pivot](const auto& em)
+    {
+        return !(pivot < em);
+    });
     // Calculate number of elements on the left and on the right from pivot
-    int l_cur = std::distance(left_border, first_of_second_group);
-    int r_cur = std::distance(first_of_second_group, right_border) - 1;
+    int l_cur = std::distance(left_border, first_of_second_group_it - 1);
+    int r_cur = std::distance(first_of_second_group_it, right_border);
 
     int l = l_cur + l_prev;
     int r = r_cur + r_prev;
@@ -84,10 +92,10 @@ int median_recursive_step(std::vector<int> & vec, vec_int_it left_border, vec_in
     }
     else{
         if(l > r){
-            return median_recursive_step(vec, left_border, first_of_second_group - 1, l_prev, r + 1);
+            return median_recursive_step(vec, left_border, first_of_second_group_it - 1, l_prev, r + 1);
         }
         else{
-            return median_recursive_step(vec, first_of_second_group + 1, right_border, l + 1, r_prev);
+            return median_recursive_step(vec, first_of_second_group_it, right_border, l + 1, r_prev);
         }
     }
 }
@@ -96,14 +104,8 @@ int median(std::vector<int> vec){
     return median_recursive_step(vec, vec.begin(), vec.end(), 0, 0);
 }
 
-
-int main(){
-    using std::cout, std::endl;
-    // std::vector<int> vec = get_random_vector(4, 1, 10);
-    // std::cout << vec << std::endl;
-    // std::cout << "median " << test_median(vec) << std::endl;
-    // std::cout << "median " << median(vec) << std::endl;
-    std::vector<int> vec = {2, 4, 10, 1};
+void correct_partition(){
+     std::vector<int> vec = {2, 4, 10, 1};
     auto first = vec.begin();
     auto last = vec.end();
     int pivot = 2;
@@ -115,8 +117,20 @@ int main(){
     {
         return !(pivot < em);
     });
-    
     std::cout << "middle2 " << *middle2 << std::endl; 
-    std::cout << vec << endl;
+    std::cout << vec << std::endl;
+}
+
+
+int main(){
+    using std::cout, std::endl;
+    std::vector<int> vec = get_random_vector(10000, 1, 10);
+    // vec = {9, 5, 8, 7, 8, 4, 1, 6, 10, 2};
+    // cout << vec << endl;
+    // std::vector<int> sorted_copy(vec);
+    // std::sort(sorted_copy.begin(), sorted_copy.end());
+    // cout << sorted_copy << endl;
+    cout << "median " << test_median(vec) << endl;
+    cout << "median " << median(vec) << endl;
     return 0;
 }
